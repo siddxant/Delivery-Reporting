@@ -1,1 +1,1020 @@
-//test
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student life @ TETR</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--green:#009C50;--dg:#004822;--pink:#F8769A;--yellow:#F0C300;--cyan:#4CC9E9;--purple:#9C2AB5;--red:#E53935;--amber:#F59E0B;}
+[data-theme="dark"]{--bg:#0a0c0e;--s1:#0f1219;--s2:#141920;--s3:#1a2028;--s4:#212833;--border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.13);--text:#e6e8f0;--text2:#9aaab8;--muted:#526070;--shadow:0 4px 20px rgba(0,0,0,0.5);}
+[data-theme="light"]{--bg:#f2f4f3;--s1:#ffffff;--s2:#f0f3f1;--s3:#e6ece8;--s4:#d8e2da;--border:rgba(0,0,0,0.08);--border2:rgba(0,0,0,0.15);--text:#1a1f1c;--text2:#4a5c52;--muted:#8a9e94;--shadow:0 4px 20px rgba(0,0,0,0.08);}
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{height:100%;font-family:'IBM Plex Sans',sans-serif;font-size:14px;line-height:1.5;}
+body{background:var(--bg);color:var(--text);transition:background .3s,color .3s;overflow:hidden;}
+#app{display:flex;height:100vh;}
+.sidebar{width:215px;background:var(--s1);border-right:1px solid var(--border);display:flex;flex-direction:column;flex-shrink:0;transition:background .3s,border-color .3s;}
+.sb-brand{padding:16px 16px 12px;border-bottom:1px solid var(--border);}
+.sb-logo{display:flex;align-items:center;gap:8px;margin-bottom:2px;}
+.sb-logo img{height:26px;object-fit:contain;}
+.sb-app-name{font-size:11px;font-weight:700;color:var(--green);letter-spacing:.3px;}
+.sb-tagline{font-size:9.5px;color:var(--muted);margin-top:1px;}
+.sb-nav{flex:1;overflow-y:auto;padding:8px 0;}
+.nav-item{display:flex;align-items:center;gap:9px;padding:9px 16px;cursor:pointer;font-size:12.5px;color:var(--text2);border-left:3px solid transparent;transition:all .15s;user-select:none;}
+.nav-item:hover{background:var(--s2);color:var(--text);}
+.nav-item.active{background:rgba(0,156,80,.12);color:var(--green);border-left-color:var(--green);font-weight:600;}
+.nav-ic{width:15px;height:15px;flex-shrink:0;opacity:.75;}
+.nav-item.active .nav-ic{opacity:1;}
+.sb-foot{padding:12px 14px;border-top:1px solid var(--border);}
+.sync-btn{width:100%;padding:8px;background:rgba(0,156,80,.1);border:1px solid rgba(0,156,80,.3);border-radius:8px;color:var(--green);font-size:11.5px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;transition:all .15s;font-family:inherit;}
+.sync-btn:hover{background:rgba(0,156,80,.18);}
+.sync-time{font-size:9.5px;color:var(--muted);text-align:center;margin-top:5px;}
+.main{flex:1;display:flex;flex-direction:column;overflow:hidden;min-width:0;}
+.topbar{height:50px;border-bottom:1px solid var(--border);padding:0 22px;display:flex;align-items:center;justify-content:space-between;background:var(--s1);flex-shrink:0;transition:background .3s,border-color .3s;}
+.topbar-title{font-size:13px;font-weight:700;color:var(--text);}
+.topbar-right{display:flex;align-items:center;gap:7px;}
+.tb-btn{width:32px;height:32px;border-radius:8px;background:var(--s2);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .15s;color:var(--text2);}
+.tb-btn:hover{background:var(--s3);}
+.tb-select{appearance:none;background:var(--s2);border:1px solid var(--border2);border-radius:7px;color:var(--text);font-family:inherit;font-size:11.5px;padding:5px 22px 5px 9px;cursor:pointer;outline:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23888' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 7px center;transition:border-color .15s,background .3s;}
+.tb-select:focus{border-color:var(--green);}
+.tb-divider{width:1px;height:18px;background:var(--border2);}
+.filter-bar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;background:var(--s1);border-bottom:1px solid var(--border);padding:7px 22px;flex-shrink:0;transition:background .3s,border-color .3s;}
+.fb-label{font-size:10px;font-weight:700;letter-spacing:.5px;color:var(--muted);}
+.fb-select{appearance:none;background:var(--s2);border:1px solid var(--border2);border-radius:6px;color:var(--text);font-family:inherit;font-size:11px;padding:5px 20px 5px 9px;cursor:pointer;outline:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='9' height='5'%3E%3Cpath d='M1 1l3.5 3.5L8 1' stroke='%23888' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 7px center;transition:border-color .15s,background .3s;}
+.fb-select:focus{border-color:var(--green);}
+.content{flex:1;overflow-y:auto;background:var(--bg);transition:background .3s;}
+.view{display:none;padding:22px;animation:fadeUp .2s ease;}
+.view.active{display:block;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+.sh{margin-bottom:18px;}
+.sh-eye{font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--green);margin-bottom:3px;}
+.sh-title{font-size:20px;font-weight:700;color:var(--text);line-height:1.15;}
+.sh-title em{font-style:italic;color:var(--green);font-weight:400;}
+.sh-line{width:24px;height:2px;background:var(--green);margin:8px 0 5px;opacity:.6;}
+.sh-desc{font-size:11.5px;color:var(--muted);}
+.hero-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-bottom:18px;}
+.hero-card{background:var(--s1);border:1px solid var(--border);border-radius:11px;padding:16px 14px;transition:all .2s;position:relative;overflow:hidden;}
+.hero-card:hover{transform:translateY(-1px);box-shadow:var(--shadow);}
+.hero-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;}
+.hc-g::before{background:var(--green);}
+.hc-y::before{background:var(--yellow);}
+.hc-c::before{background:var(--cyan);}
+.hc-p::before{background:var(--purple);}
+.hc-pk::before{background:var(--pink);}
+.hc-a::before{background:var(--amber);}
+.hero-num{font-size:28px;font-weight:700;line-height:1;color:var(--green);margin-bottom:4px;}
+.hc-y .hero-num{color:var(--yellow);}
+.hc-c .hero-num{color:var(--cyan);}
+.hc-p .hero-num{color:var(--purple);}
+.hc-pk .hero-num{color:var(--pink);}
+.hc-a .hero-num{color:var(--amber);}
+.hero-label{font-size:11px;color:var(--text2);font-weight:500;line-height:1.3;}
+.terms-row{display:flex;gap:10px;overflow-x:auto;padding-bottom:6px;margin-bottom:18px;}
+.terms-row::-webkit-scrollbar{height:3px;}
+.term-card{background:var(--s1);border:1px solid var(--border);border-radius:11px;padding:14px 16px;min-width:200px;flex-shrink:0;transition:all .2s;cursor:default;}
+.term-card:hover{border-color:var(--green);transform:translateY(-2px);box-shadow:var(--shadow);}
+.tc-badge{display:inline-flex;align-items:center;padding:2px 8px;border-radius:20px;font-size:9.5px;font-weight:700;background:rgba(0,156,80,.1);color:var(--green);margin-bottom:8px;}
+.tc-loc{font-size:10.5px;color:var(--muted);margin-bottom:4px;}
+.tc-theme{font-size:12.5px;font-weight:700;color:var(--text);margin-bottom:10px;line-height:1.3;}
+.tc-kpi{display:flex;justify-content:space-between;margin-bottom:4px;}
+.tc-kpi-l{font-size:10px;color:var(--muted);}
+.tc-kpi-v{font-size:10.5px;font-weight:700;color:var(--green);}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;}
+.three-col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:16px;}
+.col-wide-narrow{display:grid;grid-template-columns:2fr 1fr;gap:12px;margin-bottom:16px;}
+.card{background:var(--s1);border:1px solid var(--border);border-radius:11px;overflow:hidden;transition:background .3s,border-color .3s;}
+.card-head{padding:12px 14px 10px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+.card-title{font-size:12.5px;font-weight:700;color:var(--text);display:flex;align-items:center;gap:6px;}
+.card-title svg{color:var(--green);}
+.card-badge{font-size:9.5px;font-weight:700;padding:2px 7px;border-radius:20px;background:rgba(0,156,80,.1);color:var(--green);}
+.card-body{padding:12px 14px;}
+.kpi-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin-bottom:16px;}
+.kpi{background:var(--s1);border:1px solid var(--border);border-radius:10px;padding:14px 13px;position:relative;overflow:hidden;transition:all .2s;}
+.kpi:hover{transform:translateY(-1px);box-shadow:var(--shadow);}
+.kpi::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;}
+.kpi.g::after{background:var(--green);}
+.kpi.y::after{background:var(--yellow);}
+.kpi.r::after{background:var(--red);}
+.kpi.c::after{background:var(--cyan);}
+.kpi.n::after{background:var(--border2);}
+.kpi-lbl{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:7px;}
+.kpi-val{font-size:24px;font-weight:700;line-height:1;margin-bottom:3px;}
+.kpi.g .kpi-val{color:var(--green);}
+.kpi.y .kpi-val{color:var(--yellow);}
+.kpi.r .kpi-val{color:var(--red);}
+.kpi.c .kpi-val{color:var(--cyan);}
+.kpi.n .kpi-val{color:var(--text);}
+.kpi-sub{font-size:10.5px;color:var(--muted);}
+.tbl-wrap{background:var(--s1);border:1px solid var(--border);border-radius:11px;overflow:hidden;margin-bottom:16px;transition:background .3s,border-color .3s;}
+.tbl-top{padding:10px 14px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;}
+.tbl-top-title{font-size:12.5px;font-weight:700;color:var(--text);}
+.tbl-count{font-size:10.5px;color:var(--muted);}
+table{width:100%;border-collapse:collapse;}
+th{font-size:9px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);padding:8px 13px;text-align:left;background:var(--s2);border-bottom:1px solid var(--border);white-space:nowrap;}
+td{font-size:11.5px;color:var(--text);padding:9px 13px;border-bottom:1px solid var(--border);vertical-align:middle;}
+tr:last-child td{border-bottom:none;}
+tr:hover td{background:var(--s2);}
+.b{display:inline-flex;align-items:center;gap:3px;border-radius:20px;padding:2px 8px;font-size:10px;font-weight:700;border:1px solid;white-space:nowrap;}
+.b-g{color:#4ADB8A;border-color:rgba(74,219,138,.25);background:rgba(74,219,138,.08);}
+.b-y{color:#F0C300;border-color:rgba(240,195,0,.25);background:rgba(240,195,0,.08);}
+.b-r{color:#EF5350;border-color:rgba(239,83,80,.25);background:rgba(239,83,80,.08);}
+.b-c{color:#4CC9E9;border-color:rgba(76,201,233,.25);background:rgba(76,201,233,.08);}
+.b-p{color:#CE93D8;border-color:rgba(206,147,216,.25);background:rgba(206,147,216,.08);}
+.b-gray{color:var(--muted);border-color:var(--border2);background:var(--s2);}
+[data-theme="light"] .b-g{color:#006d36;border-color:rgba(0,109,54,.25);background:rgba(0,109,54,.08);}
+[data-theme="light"] .b-y{color:#7a6000;border-color:rgba(122,96,0,.25);background:rgba(122,96,0,.08);}
+[data-theme="light"] .b-r{color:#b71c1c;border-color:rgba(183,28,28,.25);background:rgba(183,28,28,.08);}
+[data-theme="light"] .b-c{color:#0e7fa0;border-color:rgba(14,127,160,.25);background:rgba(14,127,160,.08);}
+.bdot{width:5px;height:5px;border-radius:50%;background:currentColor;}
+.subtabs{display:flex;gap:2px;background:var(--s2);border-radius:8px;padding:3px;margin-bottom:16px;width:fit-content;flex-wrap:wrap;}
+.stab{padding:5px 13px;border-radius:5px;font-size:11.5px;font-weight:500;color:var(--muted);cursor:pointer;transition:all .15s;white-space:nowrap;}
+.stab.active{background:var(--s1);color:var(--text);font-weight:600;box-shadow:0 1px 4px rgba(0,0,0,.1);}
+.rag-row{display:flex;gap:8px;margin-bottom:16px;}
+.rag{flex:1;padding:12px 14px;border-radius:9px;border:1px solid;}
+.rg{background:rgba(0,156,80,.07);border-color:rgba(0,156,80,.2);}
+.ry{background:rgba(240,195,0,.07);border-color:rgba(240,195,0,.22);}
+.rr{background:rgba(229,57,53,.06);border-color:rgba(229,57,53,.18);}
+.rag-n{font-size:26px;font-weight:700;line-height:1;}
+.rg .rag-n{color:var(--green);}
+.ry .rag-n{color:var(--yellow);}
+.rr .rag-n{color:var(--red);}
+.rag-lbl{font-size:10.5px;color:var(--muted);margin-top:2px;}
+.pbar{display:flex;align-items:center;gap:7px;}
+.pbar-t{flex:1;height:5px;border-radius:3px;background:var(--s3);overflow:hidden;}
+.pbar-f{height:100%;border-radius:3px;transition:width .4s;}
+.pbar-v{font-size:10.5px;font-weight:700;width:36px;text-align:right;}
+.lb{display:flex;flex-direction:column;gap:6px;}
+.lb-item{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--s2);border-radius:8px;border:1px solid var(--border);transition:all .15s;cursor:default;}
+.lb-item:hover{background:var(--s3);}
+.lb-item.rank1{background:rgba(240,195,0,.08);border-color:rgba(240,195,0,.25);}
+.lb-item.rank2{background:rgba(180,180,180,.05);border-color:rgba(180,180,180,.15);}
+.lb-item.rank3{background:rgba(176,100,50,.06);border-color:rgba(176,100,50,.18);}
+.lb-rank{font-size:14px;width:24px;text-align:center;flex-shrink:0;}
+.lb-info{flex:1;min-width:0;}
+.lb-name{font-size:12.5px;font-weight:700;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.lb-sub{font-size:10px;color:var(--muted);}
+.lb-val{font-size:13px;font-weight:700;color:var(--green);white-space:nowrap;}
+.winner-banner{background:rgba(240,195,0,.08);border:1px solid rgba(240,195,0,.28);border-radius:11px;padding:14px 16px;margin-bottom:16px;display:flex;align-items:center;gap:12px;}
+.wt-icon{font-size:28px;flex-shrink:0;}
+.wi h4{font-size:13.5px;font-weight:700;color:var(--text);}
+.wi p{font-size:10.5px;color:var(--muted);}
+.wv{margin-left:auto;text-align:right;}
+.wv .big{font-size:20px;font-weight:700;color:var(--yellow);}
+.wv .sm{font-size:9.5px;color:var(--muted);}
+.cl-hero{background:linear-gradient(135deg,var(--dg) 0%,#006e38 100%);border-radius:12px;padding:20px 22px;color:white;margin-bottom:16px;}
+.cl-hero h3{font-size:20px;font-weight:700;margin-bottom:3px;}
+.cl-hero p{font-size:11px;opacity:.65;margin-bottom:16px;}
+.cl-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
+.cl-sv{font-size:22px;font-weight:700;color:var(--yellow);}
+.cl-sl{font-size:10px;opacity:.65;}
+.co-strip{display:flex;gap:5px;flex-wrap:wrap;margin:8px 0;}
+.co-pill{padding:3px 11px;border-radius:20px;font-size:10.5px;font-weight:600;background:var(--s2);border:1px solid var(--border2);color:var(--text2);transition:all .15s;}
+.co-pill:hover{background:var(--s3);color:var(--text);}
+.wev-list{display:flex;flex-direction:column;gap:5px;}
+.wev{display:flex;align-items:flex-start;gap:9px;padding:8px 11px;border-radius:7px;background:var(--s2);border-left:3px solid;transition:background .15s;}
+.wev:hover{background:var(--s3);}
+.wev-t{font-size:11.5px;font-weight:600;color:var(--text);}
+.wev-m{font-size:10px;color:var(--muted);margin-top:1px;}
+.ev-class{border-left-color:var(--green);}
+.ev-immersion{border-left-color:var(--purple);}
+.ev-capstone{border-left-color:var(--yellow);}
+.ev-masterclass{border-left-color:var(--pink);}
+.ev-career{border-left-color:var(--cyan);}
+.ev-sport{border-left-color:#22C55E;}
+.cal-controls{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:8px;}
+.cal-view-btns{display:flex;gap:2px;background:var(--s2);border-radius:7px;padding:3px;}
+.cvb{padding:5px 12px;border-radius:5px;font-size:11.5px;font-weight:500;color:var(--muted);cursor:pointer;transition:all .15s;}
+.cvb.active{background:var(--s1);color:var(--text);font-weight:600;box-shadow:0 1px 3px rgba(0,0,0,.1);}
+.cal-nav{display:flex;align-items:center;gap:7px;}
+.cal-nav h3{font-size:14px;font-weight:700;min-width:150px;text-align:center;}
+.cnb{width:27px;height:27px;border-radius:6px;background:var(--s2);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .15s;color:var(--text2);}
+.cnb:hover{background:var(--s3);}
+.today-btn{padding:5px 12px;border-radius:6px;background:rgba(0,156,80,.1);border:1px solid rgba(0,156,80,.28);color:var(--green);font-size:11.5px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .15s;}
+.today-btn:hover{background:rgba(0,156,80,.18);}
+.cal-legend{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:10px;}
+.cal-leg{display:flex;align-items:center;gap:4px;font-size:10.5px;color:var(--muted);}
+.ld{width:7px;height:7px;border-radius:50%;}
+.month-cal{border:1px solid var(--border);border-radius:11px;overflow:hidden;}
+.mc-hdr{display:grid;grid-template-columns:repeat(7,1fr);background:var(--s2);border-bottom:1px solid var(--border);}
+.mc-hdr div{padding:7px 4px;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--muted);text-align:center;}
+.mc-grid{display:grid;grid-template-columns:repeat(7,1fr);}
+.mday{min-height:85px;background:var(--s1);border-right:1px solid var(--border);border-bottom:1px solid var(--border);padding:5px 4px;transition:background .1s;}
+.mday:hover{background:var(--s2);}
+.mday.other-m{opacity:.4;background:var(--s2);}
+.mday.today-d{background:rgba(0,156,80,.06);}
+.dnum{font-size:10.5px;font-weight:700;width:20px;height:20px;display:flex;align-items:center;justify-content:center;border-radius:50%;color:var(--muted);margin-bottom:3px;}
+.mday.today-d .dnum{background:var(--green);color:white;}
+.cal-chip{display:block;font-size:8.5px;font-weight:600;padding:2px 4px;margin-bottom:2px;border-radius:3px;border-left:2px solid;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transition:opacity .12s;line-height:1.3;}
+.cal-chip:hover{opacity:.7;}
+.cc-class{background:rgba(0,156,80,.1);color:var(--green);border-left-color:var(--green);}
+.cc-immersion{background:rgba(156,42,181,.1);color:#CE93D8;border-left-color:#9C2AB5;}
+.cc-capstone{background:rgba(240,195,0,.1);color:var(--yellow);border-left-color:var(--yellow);}
+.cc-career{background:rgba(76,201,233,.1);color:var(--cyan);border-left-color:var(--cyan);}
+.cc-sport{background:rgba(248,118,154,.1);color:var(--pink);border-left-color:var(--pink);}
+.cc-masterclass{background:rgba(245,158,11,.1);color:var(--amber);border-left-color:var(--amber);}
+[data-theme="light"] .cc-immersion{color:#7B1FA2;}
+[data-theme="light"] .cc-capstone{color:#7a6000;}
+[data-theme="light"] .cc-career{color:#0e7fa0;}
+.cal-list-view{display:flex;flex-direction:column;gap:6px;}
+.cl-ev{display:flex;align-items:center;gap:12px;padding:10px 14px;background:var(--s1);border:1px solid var(--border);border-radius:9px;cursor:default;transition:background .15s;border-left:3px solid;}
+.cl-ev:hover{background:var(--s2);}
+.cl-ev-date{font-size:10.5px;font-weight:700;color:var(--muted);width:54px;flex-shrink:0;font-family:'IBM Plex Mono',monospace;}
+.cl-ev-title{flex:1;font-size:12px;font-weight:600;color:var(--text);}
+.cl-ev-meta{font-size:10px;color:var(--muted);}
+.filter-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:14px;}
+.srch{background:var(--s2);border:1px solid var(--border2);border-radius:6px;padding:6px 10px 6px 30px;font-size:11px;font-family:inherit;color:var(--text);outline:none;width:180px;transition:border-color .15s,background .3s;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cpath d='m21 21-4.35-4.35'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:9px center;}
+.srch:focus{border-color:var(--green);}
+.setup-notice{background:rgba(240,195,0,.07);border:1px solid rgba(240,195,0,.22);border-radius:10px;padding:14px 16px;margin-bottom:16px;}
+.setup-notice h4{font-size:12.5px;font-weight:700;color:var(--text);margin-bottom:6px;}
+.setup-notice p{font-size:11.5px;color:var(--muted);line-height:1.6;}
+code{background:var(--s3);padding:1px 5px;border-radius:3px;font-size:10.5px;font-family:'IBM Plex Mono',monospace;color:var(--green);}
+.alert{border-radius:8px;padding:10px 13px;margin-bottom:12px;display:flex;align-items:flex-start;gap:8px;font-size:11.5px;line-height:1.5;border:1px solid;}
+.a-warn{background:rgba(245,158,11,.07);border-color:rgba(245,158,11,.28);}
+.a-danger{background:rgba(229,57,53,.07);border-color:rgba(229,57,53,.25);}
+::-webkit-scrollbar{width:4px;height:4px;}
+::-webkit-scrollbar-thumb{background:var(--s4);border-radius:2px;}
+.loading{display:flex;align-items:center;justify-content:center;gap:10px;padding:40px;color:var(--muted);font-size:12px;}
+.spin{width:18px;height:18px;border:2px solid var(--border2);border-top-color:var(--green);border-radius:50%;animation:spin .7s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+</style>
+</head>
+<body>
+<div id="app">
+
+<aside class="sidebar">
+  <div class="sb-brand">
+    <div class="sb-logo">
+      <img src="tetr-logo.jpg" alt="TETR" onerror="this.style.display='none'">
+      <span class="sb-app-name">Student life @ TETR</span>
+    </div>
+    <div class="sb-tagline">Delivery intelligence</div>
+  </div>
+  <nav class="sb-nav">
+    <div class="nav-item active" onclick="nav('dashboard')">
+      <svg class="nav-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+      Dashboard
+    </div>
+    <div class="nav-item" onclick="nav('academics')">
+      <svg class="nav-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+      Academics
+    </div>
+    <div class="nav-item" onclick="nav('capstone')">
+      <svg class="nav-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+      Capstone
+    </div>
+    <div class="nav-item" onclick="nav('career')">
+      <svg class="nav-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+      Career labs
+    </div>
+    <div class="nav-item" onclick="nav('immersions')">
+      <svg class="nav-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+      Immersions
+    </div>
+    <div class="nav-item" onclick="nav('experience')">
+      <svg class="nav-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      Student experience
+    </div>
+    <div class="nav-item" onclick="nav('lms')">
+      <svg class="nav-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      LMS &amp; welfare
+    </div>
+    <div class="nav-item" onclick="nav('calendar')">
+      <svg class="nav-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+      Calendar
+    </div>
+    <div class="nav-item" onclick="nav('guardrails')">
+      <svg class="nav-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      Guardrails
+    </div>
+  </nav>
+  <div class="sb-foot">
+    <button class="sync-btn" onclick="syncAll()">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></svg>
+      Sync from sheets
+    </button>
+    <div class="sync-time" id="sync-time">Not synced yet</div>
+  </div>
+</aside>
+
+<div class="main">
+  <div class="topbar">
+    <span class="topbar-title" id="page-title">Dashboard overview</span>
+    <div class="topbar-right">
+      <select class="tb-select" id="g-cohort" onchange="applyFilters()">
+        <option value="all">All cohorts</option>
+        <option value="C1">Cohort 1 (Class of '28)</option>
+        <option value="C2">Cohort 2 (Class of '29)</option>
+        <option value="C3">Cohort 3 (Class of '30)</option>
+      </select>
+      <select class="tb-select" id="g-program" onchange="applyFilters()">
+        <option value="all">All programs</option>
+        <option value="BSc AI">BSc AI</option>
+        <option value="BBA AI">BBA AI</option>
+      </select>
+      <div class="tb-divider"></div>
+      <div class="tb-btn" onclick="toggleTheme()" title="Toggle dark/light mode" id="theme-btn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" id="theme-ic"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </div>
+      <div class="tb-btn" title="Export data" onclick="alert('Export — connect your Google Sheet first')">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      </div>
+    </div>
+  </div>
+
+  <div class="filter-bar">
+    <span class="fb-label">Filter:</span>
+    <select class="fb-select" id="f-term" onchange="applyFilters()">
+      <option value="all">All terms</option>
+      <option value="1">Term 1 — Dubai</option>
+      <option value="2">Term 2 — India</option>
+      <option value="3">Term 3 — Singapore</option>
+      <option value="4">Term 4 — Ghana</option>
+      <option value="5">Term 5 — USA</option>
+    </select>
+    <select class="fb-select" id="f-status" onchange="applyFilters()">
+      <option value="all">All statuses</option>
+      <option value="green">On track</option>
+      <option value="yellow">Needs attention</option>
+      <option value="red">At risk</option>
+    </select>
+    <input type="date" class="fb-select" id="f-from" onchange="applyFilters()" title="From date" style="padding-right:9px;">
+    <input type="date" class="fb-select" id="f-to" onchange="applyFilters()" title="To date" style="padding-right:9px;">
+  </div>
+
+  <div class="content">
+
+    <!-- DASHBOARD -->
+    <div class="view active" id="v-dashboard">
+      <div class="sh">
+        <div class="sh-eye">Cohort outcomes — all time</div>
+        <div class="sh-title">Student life <em>@ TETR</em></div>
+        <div class="sh-line"></div>
+        <div class="sh-desc">Live delivery intelligence across academics, capstone, career labs, and student experience.</div>
+      </div>
+      <div class="hero-grid">
+        <div class="hero-card hc-g"><div class="hero-num">$500K+</div><div class="hero-label">Cumulative capstone revenue</div></div>
+        <div class="hero-card hc-y"><div class="hero-num">150+</div><div class="hero-label">Businesses registered</div></div>
+        <div class="hero-card hc-c"><div class="hero-num">290+</div><div class="hero-label">Internships completed</div></div>
+        <div class="hero-card hc-p"><div class="hero-num">$200K+</div><div class="hero-label">Cumulative stipend generated</div></div>
+        <div class="hero-card hc-pk"><div class="hero-num">44</div><div class="hero-label">Business immersions</div></div>
+        <div class="hero-card hc-a"><div class="hero-num">48</div><div class="hero-label">Cultural immersions</div></div>
+      </div>
+      <div class="sh" style="margin-bottom:10px;"><div class="sh-eye">Term by term performance</div></div>
+      <div class="terms-row">
+        <div class="term-card">
+          <div class="tc-badge">Term 1</div>
+          <div class="tc-loc">📍 Dubai, UAE · E-commerce</div>
+          <div class="tc-theme">Dropshipping &amp; digital retail</div>
+          <div class="tc-kpi"><span class="tc-kpi-l">Revenue</span><span class="tc-kpi-v">$172K+</span></div>
+          <div class="tc-kpi"><span class="tc-kpi-l">Avg profit margin</span><span class="tc-kpi-v">21.8%</span></div>
+          <div class="tc-kpi"><span class="tc-kpi-l">Demo day funding</span><span class="tc-kpi-v">$31.3K</span></div>
+        </div>
+        <div class="term-card">
+          <div class="tc-badge">Term 2</div>
+          <div class="tc-loc">📍 India · D2C manufacturing</div>
+          <div class="tc-theme">Direct-to-consumer brands</div>
+          <div class="tc-kpi"><span class="tc-kpi-l">Revenue</span><span class="tc-kpi-v">$250K+</span></div>
+          <div class="tc-kpi"><span class="tc-kpi-l">Avg profit margin</span><span class="tc-kpi-v">30.62%</span></div>
+          <div class="tc-kpi"><span class="tc-kpi-l">Demo day funding</span><span class="tc-kpi-v">$126K</span></div>
+        </div>
+        <div class="term-card">
+          <div class="tc-badge">Term 3</div>
+          <div class="tc-loc">📍 Singapore · Kickstarter</div>
+          <div class="tc-theme">Crowdfunding campaigns</div>
+          <div class="tc-kpi"><span class="tc-kpi-l">Raised (SGD)</span><span class="tc-kpi-v">SGD $59.5K</span></div>
+          <div class="tc-kpi"><span class="tc-kpi-l">Teams live</span><span class="tc-kpi-v">12</span></div>
+          <div class="tc-kpi"><span class="tc-kpi-l">Fully funded</span><span class="tc-kpi-v">8 teams</span></div>
+        </div>
+        <div class="term-card">
+          <div class="tc-badge">Term 4</div>
+          <div class="tc-loc">📍 Ghana · Social impact</div>
+          <div class="tc-theme">Grassroots ventures</div>
+          <div class="tc-kpi"><span class="tc-kpi-l">Lives impacted</span><span class="tc-kpi-v">4,480+</span></div>
+          <div class="tc-kpi"><span class="tc-kpi-l">Ventures launched</span><span class="tc-kpi-v">18</span></div>
+          <div class="tc-kpi"><span class="tc-kpi-l">External grants</span><span class="tc-kpi-v">$28K</span></div>
+        </div>
+        <div class="term-card" style="border-style:dashed;opacity:.55;">
+          <div class="tc-badge" style="background:rgba(100,100,100,.1);color:var(--muted);">Term 5</div>
+          <div class="tc-loc">📍 USA · Upcoming</div>
+          <div class="tc-theme">Scale &amp; Series A</div>
+          <div class="tc-kpi"><span class="tc-kpi-l">Status</span><span class="tc-kpi-v" style="color:var(--muted);">In planning</span></div>
+        </div>
+      </div>
+      <div class="col-wide-narrow">
+        <div class="card">
+          <div class="card-head">
+            <div class="card-title">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+              What's happening this week
+            </div>
+            <div class="card-badge" id="this-week-label"></div>
+          </div>
+          <div class="card-body"><div class="wev-list" id="this-week-events"></div></div>
+        </div>
+        <div class="card">
+          <div class="card-head">
+            <div class="card-title">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              Top capstone teams
+            </div>
+            <div class="card-badge">All time</div>
+          </div>
+          <div class="card-body"><div class="lb" id="dash-leaderboard"></div></div>
+        </div>
+      </div>
+      <div class="two-col">
+        <div class="card">
+          <div class="card-head"><div class="card-title">Attendance at a glance</div></div>
+          <div class="card-body" id="dash-attendance"></div>
+        </div>
+        <div class="card">
+          <div class="card-head"><div class="card-title">Career labs snapshot</div></div>
+          <div class="card-body" id="dash-career"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ACADEMICS -->
+    <div class="view" id="v-academics">
+      <div class="sh"><div class="sh-eye">Academics</div><div class="sh-title">Faculty, courses &amp; attendance</div><div class="sh-line"></div></div>
+      <div class="subtabs">
+        <div class="stab active" onclick="stab(this)">Attendance</div>
+        <div class="stab" onclick="stab(this)">Faculty feedback</div>
+        <div class="stab" onclick="stab(this)">Course tracker</div>
+      </div>
+      <div class="filter-row">
+        <input class="srch" placeholder="Search faculty or course…">
+        <select class="fb-select"><option value="all">All locations</option><option>Dubai</option><option>India</option><option>Singapore</option><option>Ghana</option></select>
+      </div>
+      <div class="kpi-grid" id="ac-kpis"></div>
+      <div id="ac-alerts"></div>
+      <div id="ac-table"></div>
+    </div>
+
+    <!-- CAPSTONE -->
+    <div class="view" id="v-capstone">
+      <div class="sh"><div class="sh-eye">Capstone intelligence</div><div class="sh-title">Team performance &amp; rankings</div><div class="sh-line"></div></div>
+      <div class="subtabs">
+        <div class="stab active" onclick="stab(this)">Overview</div>
+        <div class="stab" onclick="stab(this)">Leaderboard</div>
+        <div class="stab" onclick="stab(this)">Deep dive</div>
+      </div>
+      <div class="filter-row">
+        <select class="fb-select" id="cs-term" onchange="renderCapstone()"><option value="all">All terms</option><option value="1">Term 1 — Dubai</option><option value="2">Term 2 — India</option><option value="3">Term 3 — Singapore</option><option value="4">Term 4 — Ghana</option></select>
+        <select class="fb-select" id="cs-cohort" onchange="renderCapstone()"><option value="all">All cohorts</option><option value="C1">Cohort 1</option><option value="C2">Cohort 2</option></select>
+        <select class="fb-select" id="cs-status" onchange="renderCapstone()"><option value="all">All statuses</option><option value="green">On track</option><option value="yellow">Needs attention</option><option value="red">At risk</option></select>
+      </div>
+      <div id="cs-winner"></div>
+      <div class="rag-row" id="cs-rag"></div>
+      <div class="two-col">
+        <div id="cs-table"></div>
+        <div class="card" id="cs-lb-card">
+          <div class="card-head"><div class="card-title">Revenue leaderboard</div></div>
+          <div class="card-body"><div class="lb" id="cs-lb"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CAREER LABS -->
+    <div class="view" id="v-career">
+      <div class="sh"><div class="sh-eye">Career labs</div><div class="sh-title">Internships, placements &amp; partners</div><div class="sh-line"></div></div>
+      <div class="subtabs">
+        <div class="stab active" onclick="stab(this)">Summer internships</div>
+        <div class="stab" onclick="stab(this)">Opportunities board</div>
+        <div class="stab" onclick="stab(this)">Student placements</div>
+        <div class="stab" onclick="stab(this)">Masterclasses</div>
+      </div>
+      <div id="cl-hero-section"></div>
+      <div class="filter-row">
+        <input class="srch" placeholder="Search company or role…">
+        <select class="fb-select"><option value="all">All countries</option><option>India</option><option>UAE</option><option>Singapore</option><option>USA</option><option>UK</option></select>
+        <select class="fb-select"><option value="all">All industries</option><option>Technology</option><option>Finance</option><option>Media</option><option>Consulting</option></select>
+      </div>
+      <div id="cl-main"></div>
+    </div>
+
+    <!-- IMMERSIONS -->
+    <div class="view" id="v-immersions">
+      <div class="sh"><div class="sh-eye">Immersions</div><div class="sh-title">Business &amp; cultural immersions</div><div class="sh-line"></div></div>
+      <div class="filter-row">
+        <select class="fb-select"><option value="all">All types</option><option>Business</option><option>Cultural</option></select>
+        <select class="fb-select"><option value="all">All locations</option><option>Dubai</option><option>India</option><option>Singapore</option><option>Ghana</option></select>
+      </div>
+      <div class="kpi-grid" id="im-kpis"></div>
+      <div id="im-table"></div>
+    </div>
+
+    <!-- STUDENT EXPERIENCE -->
+    <div class="view" id="v-experience">
+      <div class="sh"><div class="sh-eye">Student experience</div><div class="sh-title">Community, sports &amp; events</div><div class="sh-line"></div></div>
+      <div class="filter-row">
+        <select class="fb-select"><option value="all">All categories</option><option>Sports</option><option>Community</option><option>Events</option><option>Welfare</option></select>
+      </div>
+      <div class="kpi-grid" id="sx-kpis"></div>
+      <div id="sx-table"></div>
+    </div>
+
+    <!-- LMS -->
+    <div class="view" id="v-lms">
+      <div class="sh"><div class="sh-eye">LMS &amp; welfare</div><div class="sh-title">Tickets, resolution &amp; welfare trends</div><div class="sh-line"></div></div>
+      <div class="kpi-grid" id="lms-kpis"></div>
+      <div id="lms-alerts"></div>
+      <div id="lms-table"></div>
+    </div>
+
+    <!-- CALENDAR -->
+    <div class="view" id="v-calendar">
+      <div class="sh"><div class="sh-eye">Academic calendar</div><div class="sh-title">Events, classes &amp; milestones</div><div class="sh-line"></div></div>
+      <div class="cal-legend">
+        <div class="cal-leg"><div class="ld" style="background:var(--green)"></div>Classes</div>
+        <div class="cal-leg"><div class="ld" style="background:#9C2AB5"></div>Immersions</div>
+        <div class="cal-leg"><div class="ld" style="background:var(--yellow)"></div>Capstone milestones</div>
+        <div class="cal-leg"><div class="ld" style="background:var(--cyan)"></div>Career labs</div>
+        <div class="cal-leg"><div class="ld" style="background:var(--pink)"></div>Masterclasses</div>
+        <div class="cal-leg"><div class="ld" style="background:#22C55E"></div>Sports &amp; community</div>
+      </div>
+      <div class="cal-controls">
+        <div class="cal-nav">
+          <div class="cnb" onclick="calPrev()"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg></div>
+          <h3 id="cal-title">July 2026</h3>
+          <div class="cnb" onclick="calNext()"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg></div>
+          <button class="today-btn" onclick="calToday()">Today</button>
+        </div>
+        <div class="cal-view-btns">
+          <div class="cvb active" onclick="calView('month',this)">Month</div>
+          <div class="cvb" onclick="calView('list',this)">List</div>
+        </div>
+      </div>
+      <div id="cal-body"></div>
+    </div>
+
+    <!-- GUARDRAILS -->
+    <div class="view" id="v-guardrails">
+      <div class="sh">
+        <div class="sh-eye">Guardrails configuration</div>
+        <div class="sh-title">Metric thresholds &amp; alerting rules</div>
+        <div class="sh-line"></div>
+        <div class="sh-desc">Define what constitutes on track, needs attention, and at risk for each metric. Manage these in the Guardrails tab of your Google Sheet.</div>
+      </div>
+      <div class="setup-notice">
+        <h4>⚙️ Connect your Google Sheet</h4>
+        <p>Enter the GID for each tab in the <code>GIDS</code> config at the top of this file. Find GIDs in your published sheet URL: <code>…&amp;gid=YOUR_GID&amp;single=true…</code></p>
+      </div>
+      <div class="tbl-wrap">
+        <div class="tbl-top"><span class="tbl-top-title">Active guardrail rules</span><span class="tbl-count" id="gr-count"></span></div>
+        <table>
+          <thead><tr><th>Metric</th><th>Department</th><th>Red threshold</th><th>Yellow threshold</th><th>Green threshold</th><th>Unit</th></tr></thead>
+          <tbody id="gr-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</div>
+</div>
+
+<script>
+const BASE='https://docs.google.com/spreadsheets/d/e/2PACX-1vRiBfB8cN6fwu3ijHhS_HlSMvA3zKHUP1ULFsn9MY5w-TUcH2qqDuETEcukqQLZpAvwsfmiySB7c-by/pub';
+const GIDS={attendance:null,faculty_feedback:null,capstone:null,capstone_teams:null,career_labs:null,internship_opps:null,student_internships:null,lms:null,immersions:null,student_exp:null,academics:null,guardrails:null};
+const D={
+  attendance:[
+    {week_date:'2026-07-04',cohort:'C1',program:'BSc AI',location:'Singapore',aggregate_att:91,overall_att:89,below_70_count:2,comments:''},
+    {week_date:'2026-07-04',cohort:'C2',program:'BBA AI',location:'Singapore',aggregate_att:88,overall_att:85,below_70_count:4,comments:'3 students on medical leave'},
+    {week_date:'2026-06-27',cohort:'C1',program:'BSc AI',location:'Singapore',aggregate_att:93,overall_att:91,below_70_count:1,comments:''},
+    {week_date:'2026-06-27',cohort:'C2',program:'BBA AI',location:'Singapore',aggregate_att:86,overall_att:84,below_70_count:5,comments:''},
+  ],
+  faculty_feedback:[
+    {week_date:'2026-07-04',cohort:'C1',program:'BSc AI',avg_rating:4.6,courses_completed:3},
+    {week_date:'2026-07-04',cohort:'C2',program:'BBA AI',avg_rating:4.2,courses_completed:2},
+    {week_date:'2026-06-27',cohort:'C1',program:'BSc AI',avg_rating:4.8,courses_completed:2},
+    {week_date:'2026-06-27',cohort:'C2',program:'BBA AI',avg_rating:4.1,courses_completed:3},
+  ],
+  capstone_teams:[
+    {cohort:'C1',term:'1',location:'Dubai',team_name:'Tafflo',company_name:'Tafflo Ltd.',members_count:4,country_of_setup:'UAE',tetr_funding:5000,external_funding:8000,status:'green',revenue:18008,product:'Dropshipping fashion'},
+    {cohort:'C1',term:'1',location:'Dubai',team_name:'Taowist',company_name:'Taowist Co.',members_count:4,country_of_setup:'UAE',tetr_funding:5000,external_funding:6000,status:'green',revenue:12032,product:'Sports & lifestyle'},
+    {cohort:'C1',term:'1',location:'Dubai',team_name:'Illurex',company_name:'Illurex Inc.',members_count:3,country_of_setup:'UAE',tetr_funding:5000,external_funding:2000,status:'yellow',revenue:6155,product:'Accessories'},
+    {cohort:'C1',term:'2',location:'India',team_name:'Icebreakers',company_name:'Icebreakers Pvt Ltd',members_count:5,country_of_setup:'India',tetr_funding:7000,external_funding:15000,status:'green',revenue:32400,product:'D2C beverages'},
+    {cohort:'C1',term:'2',location:'India',team_name:'8 Billion Project',company_name:'8BP Pvt Ltd',members_count:4,country_of_setup:'India',tetr_funding:7000,external_funding:20000,status:'green',revenue:29600,product:'Sustainable goods'},
+    {cohort:'C1',term:'2',location:'India',team_name:'Spice Route',company_name:'Spice Route Co.',members_count:4,country_of_setup:'India',tetr_funding:7000,external_funding:8000,status:'green',revenue:18200,product:'Food & beverage'},
+    {cohort:'C1',term:'3',location:'Singapore',team_name:'ClickBuddy',company_name:'ClickBuddy SG',members_count:4,country_of_setup:'Singapore',tetr_funding:6000,external_funding:12000,status:'green',revenue:14500,product:'Productivity SaaS'},
+    {cohort:'C1',term:'3',location:'Singapore',team_name:'NanoWear',company_name:'NanoWear Pte',members_count:3,country_of_setup:'Singapore',tetr_funding:6000,external_funding:5000,status:'yellow',revenue:7200,product:'Smart textiles'},
+    {cohort:'C2',term:'1',location:'Dubai',team_name:'AuroraX',company_name:'AuroraX LLC',members_count:4,country_of_setup:'UAE',tetr_funding:5000,external_funding:9000,status:'green',revenue:15600,product:'Beauty e-commerce'},
+    {cohort:'C2',term:'1',location:'Dubai',team_name:'Drift Labs',company_name:'Drift Labs FZE',members_count:5,country_of_setup:'UAE',tetr_funding:5000,external_funding:4000,status:'yellow',revenue:8900,product:'Auto accessories'},
+    {cohort:'C2',term:'2',location:'India',team_name:'Mango Protocol',company_name:'Mango Protocol Pvt',members_count:4,country_of_setup:'India',tetr_funding:7000,external_funding:18000,status:'green',revenue:26800,product:'AgriTech D2C'},
+    {cohort:'C2',term:'2',location:'India',team_name:'Velox',company_name:'Velox India',members_count:3,country_of_setup:'India',tetr_funding:7000,external_funding:3000,status:'red',revenue:4100,product:'Logistics SaaS'},
+  ],
+  internship_opps:[
+    {company_name:'Google',country:'USA',industry:'Technology',role_title:'Product Management Intern',stipend_usd:6000,number_of_roles:2,status:'Active'},
+    {company_name:'eBay',country:'USA',industry:'Technology',role_title:'Data Analyst Intern',stipend_usd:4500,number_of_roles:3,status:'Active'},
+    {company_name:'BlackRock',country:'UK',industry:'Finance',role_title:'Investment Research Intern',stipend_usd:5500,number_of_roles:1,status:'Active'},
+    {company_name:'National Geographic',country:'UAE',industry:'Media',role_title:'Content Strategy Intern',stipend_usd:2800,number_of_roles:2,status:'Active'},
+    {company_name:'F1 (Formula One Group)',country:'UK',industry:'Sports & Media',role_title:'Digital Marketing Intern',stipend_usd:3200,number_of_roles:2,status:'Active'},
+    {company_name:'Noon.com',country:'UAE',industry:'E-commerce',role_title:'Growth Marketing Intern',stipend_usd:2500,number_of_roles:3,status:'Active'},
+    {company_name:'McKinsey & Company',country:'India',industry:'Consulting',role_title:'Business Analyst Intern',stipend_usd:3800,number_of_roles:1,status:'Active'},
+    {company_name:'Goldman Sachs',country:'India',industry:'Finance',role_title:'Markets Intern',stipend_usd:4200,number_of_roles:2,status:'Active'},
+    {company_name:'Flipkart',country:'India',industry:'E-commerce',role_title:'Product Intern',stipend_usd:2000,number_of_roles:3,status:'Active'},
+    {company_name:'Accenture',country:'India',industry:'Consulting',role_title:'Strategy Intern',stipend_usd:2200,number_of_roles:4,status:'Active'},
+  ],
+  student_internships:[
+    {student_name:'Aryan Shah',cohort:'C1',program:'BSc AI',company_name:'Google',industry:'Technology',role:'PM Intern',stipend_usd:6000,duration_months:3,status:'Completed'},
+    {student_name:'Priya Nair',cohort:'C1',program:'BBA AI',company_name:'BlackRock',industry:'Finance',role:'Investment Intern',stipend_usd:5500,duration_months:3,status:'Completed'},
+    {student_name:'Rohan Mehta',cohort:'C1',program:'BSc AI',company_name:'F1',industry:'Sports',role:'Digital Marketing',stipend_usd:3200,duration_months:2,status:'Completed'},
+    {student_name:'Sara Al-Farsi',cohort:'C2',program:'BBA AI',company_name:'eBay',industry:'Technology',role:'Data Analyst',stipend_usd:4500,duration_months:3,status:'Active'},
+    {student_name:'Kavya Reddy',cohort:'C2',program:'BSc AI',company_name:'National Geographic',industry:'Media',role:'Content Intern',stipend_usd:2800,duration_months:2,status:'Active'},
+    {student_name:'Aditya Kumar',cohort:'C2',program:'BBA AI',company_name:'Goldman Sachs',industry:'Finance',role:'Markets Intern',stipend_usd:4200,duration_months:3,status:'Active'},
+    {student_name:'Zara Ahmed',cohort:'C1',program:'BBA AI',company_name:'McKinsey',industry:'Consulting',role:'Business Analyst',stipend_usd:3800,duration_months:2,status:'Completed'},
+    {student_name:'Dev Patel',cohort:'C1',program:'BSc AI',company_name:'Noon.com',industry:'E-commerce',role:'Growth Intern',stipend_usd:2500,duration_months:2,status:'Completed'},
+  ],
+  lms:[
+    {week_date:'2026-07-04',cohort:'C1',tickets_raised:12,tickets_resolved:11,avg_tat_days:1.2,attendance_count:3,academics_count:4,leave_count:2,capstone_count:2,welfare_count:1},
+    {week_date:'2026-07-04',cohort:'C2',tickets_raised:18,tickets_resolved:14,avg_tat_days:2.1,attendance_count:5,academics_count:6,leave_count:3,capstone_count:2,welfare_count:2},
+    {week_date:'2026-06-27',cohort:'C1',tickets_raised:9,tickets_resolved:9,avg_tat_days:0.9,attendance_count:2,academics_count:3,leave_count:2,capstone_count:1,welfare_count:1},
+  ],
+  immersions:[
+    {week_date:'2026-03-10',cohort:'C1',type:'Business',name:'Majid Al Futtaim HQ visit',location:'Dubai',completed:true},
+    {week_date:'2026-03-15',cohort:'C1',type:'Cultural',name:'Dubai Museum of the Future',location:'Dubai',completed:true},
+    {week_date:'2026-04-20',cohort:'C1',type:'Business',name:'Tata Group Mumbai factory tour',location:'India',completed:true},
+    {week_date:'2026-04-25',cohort:'C1',type:'Cultural',name:'Kochi Art Biennale',location:'India',completed:true},
+    {week_date:'2026-05-12',cohort:'C1',type:'Business',name:'Dyson Singapore HQ',location:'Singapore',completed:true},
+    {week_date:'2026-05-18',cohort:'C2',type:'Business',name:'Amazon UAE logistics visit',location:'Dubai',completed:true},
+    {week_date:'2026-06-02',cohort:'C2',type:'Cultural',name:'Bollywood studio tour, Mumbai',location:'India',completed:true},
+    {week_date:'2026-07-08',cohort:'C1',type:'Business',name:'Lazada Singapore tech campus',location:'Singapore',completed:false},
+  ],
+  student_exp:[
+    {week_date:'2026-07-04',cohort:'C1',category:'Sports',activity_name:'5-a-side football league',count:32},
+    {week_date:'2026-07-04',cohort:'C1',category:'Community',activity_name:'Cohort dinner — Term 3 wrap',count:48},
+    {week_date:'2026-07-04',cohort:'C2',category:'Sports',activity_name:'Cricket tournament',count:28},
+    {week_date:'2026-06-27',cohort:'C1',category:'Events',activity_name:'Demo Day preparation workshop',count:41},
+    {week_date:'2026-06-27',cohort:'C2',category:'Community',activity_name:'Mental wellness session',count:35},
+  ],
+  academics:[
+    {cohort:'C1',program:'BSc AI',term:'3',course_code:'AI301',course_name:'Deep Learning & Neural Networks',hours:36,faculty_1:'Dr. Ritu Sharma',cot_status:'Completed',course_status:'Delivered',feedback_score:4.7},
+    {cohort:'C1',program:'BSc AI',term:'3',course_code:'BUS305',course_name:'Entrepreneurial Finance',hours:28,faculty_1:'Prof. Sahil Mehta',cot_status:'Completed',course_status:'Delivered',feedback_score:4.3},
+    {cohort:'C1',program:'BBA AI',term:'3',course_code:'BBA310',course_name:'AI Strategy & Implementation',hours:24,faculty_1:'Dr. Ananya Roy',cot_status:'Completed',course_status:'Delivered',feedback_score:4.5},
+    {cohort:'C2',program:'BSc AI',term:'2',course_code:'AI201',course_name:'Machine Learning Fundamentals',hours:40,faculty_1:'Dr. Ritu Sharma',cot_status:'Completed',course_status:'Delivered',feedback_score:4.8},
+    {cohort:'C2',program:'BBA AI',term:'2',course_code:'MKT201',course_name:'Digital Marketing with AI',hours:28,faculty_1:'Prof. Vikram Sinha',cot_status:'In progress',course_status:'In delivery',feedback_score:4.2},
+    {cohort:'C2',program:'BSc AI',term:'2',course_code:'BUS210',course_name:'Operations & Supply Chain',hours:24,faculty_1:'Prof. Geeta Pillai',cot_status:'In progress',course_status:'In delivery',feedback_score:4.0},
+  ],
+  guardrails:[
+    {metric_id:'attendance_agg',metric_name:'Aggregate attendance',department:'Academics',red_threshold:75,yellow_threshold:85,green_threshold:90,comparison:'gte',unit:'%'},
+    {metric_id:'attendance_overall',metric_name:'Overall attendance',department:'Academics',red_threshold:70,yellow_threshold:80,green_threshold:88,comparison:'gte',unit:'%'},
+    {metric_id:'faculty_rating',metric_name:'Faculty feedback score',department:'Academics',red_threshold:3.5,yellow_threshold:4.0,green_threshold:4.5,comparison:'gte',unit:'/5'},
+    {metric_id:'lms_resolution',metric_name:'Ticket resolution rate',department:'LMS',red_threshold:70,yellow_threshold:85,green_threshold:95,comparison:'gte',unit:'%'},
+    {metric_id:'lms_tat',metric_name:'Avg ticket turnaround',department:'LMS',red_threshold:3,yellow_threshold:2,green_threshold:1,comparison:'lte',unit:'days'},
+    {metric_id:'capstone_green',metric_name:'Teams on track',department:'Capstone',red_threshold:50,yellow_threshold:70,green_threshold:85,comparison:'gte',unit:'%'},
+    {metric_id:'intern_placement',metric_name:'Students placed (internship)',department:'Career Labs',red_threshold:40,yellow_threshold:65,green_threshold:80,comparison:'gte',unit:'%'},
+  ],
+};
+let SD={},GR={};
+function loadGR(rows){rows.forEach(r=>{GR[r.metric_id]=r;});}
+function status(id,val){
+  const g=GR[id];if(!g)return'neutral';
+  const v=parseFloat(val),rt=parseFloat(g.red_threshold),yt=parseFloat(g.yellow_threshold),grt=parseFloat(g.green_threshold);
+  if(g.comparison==='gte'){if(v>=grt)return'g';if(v>=yt)return'y';return'r';}
+  else{if(v<=grt)return'g';if(v<=yt)return'y';return'r';}
+}
+function get(k){return SD[k]||D[k]||[];}
+function badge(v){const m={g:'b-g',y:'b-y',r:'b-r',green:'b-g',yellow:'b-y',red:'b-r',neutral:'b-gray'};return`<span class="b ${m[v]||'b-gray'}"><span class="bdot"></span>${({g:'On track',y:'Attention',r:'At risk',green:'On track',yellow:'Attention',red:'At risk',neutral:'n/a'})[v]||v}</span>`;}
+function pbar(v,color){color=color||'var(--green)';return`<div class="pbar"><div class="pbar-t"><div class="pbar-f" style="width:${Math.min(v,100)}%;background:${color}"></div></div><div class="pbar-v">${v}%</div></div>`;}
+function kpiHtml(lbl,val,cls,sub){return`<div class="kpi ${cls||'n'}"><div class="kpi-lbl">${lbl}</div><div class="kpi-val">${val}</div>${sub?`<div class="kpi-sub">${sub}</div>`:''}</div>`;}
+function tblHtml(cols,rows,empty){
+  if(!rows||!rows.length)return`<div style="padding:32px;text-align:center;color:var(--muted);font-size:12px;">${empty||'No data available'}</div>`;
+  return`<table><thead><tr>${cols.map(c=>`<th>${c}</th>`).join('')}</tr></thead><tbody>${rows.map(r=>`<tr>${r.map(c=>`<td>${c==null?'—':c}</td>`).join('')}</tr>`).join('')}</tbody></table>`;
+}
+function toggleTheme(){
+  const d=document.documentElement,ic=document.getElementById('theme-ic');
+  if(d.dataset.theme==='dark'){
+    d.dataset.theme='light';
+    ic.innerHTML='<circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>';
+  }else{
+    d.dataset.theme='dark';
+    ic.innerHTML='<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>';
+  }
+}
+const PAGE_TITLES={dashboard:'Dashboard overview',academics:'Academics',capstone:'Capstone intelligence',career:'Career labs',immersions:'Immersions',experience:'Student experience',lms:'LMS & welfare',calendar:'Academic calendar',guardrails:'Guardrails config'};
+function nav(id){
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n=>{if(n.getAttribute('onclick')===`nav('${id}')`)n.classList.add('active');});
+  document.getElementById('v-'+id).classList.add('active');
+  document.getElementById('page-title').textContent=PAGE_TITLES[id]||id;
+  const render={capstone:renderCapstone,career:renderCareer,academics:renderAcademics,immersions:renderImmersions,experience:renderExperience,lms:renderLMS,calendar:renderCalendar,guardrails:renderGuardrails};
+  if(render[id])render[id]();
+}
+function stab(el){
+  const p=el.closest('.subtabs');
+  p.querySelectorAll('.stab').forEach(s=>s.classList.remove('active'));
+  el.classList.add('active');
+}
+function applyFilters(){renderDashboard();}
+
+// DASHBOARD
+function renderDashboard(){renderThisWeek();renderDashLeaderboard();renderDashAttendance();renderDashCareer();}
+function renderThisWeek(){
+  const now=new Date();
+  document.getElementById('this-week-label').textContent='Week of '+now.toLocaleDateString('en-GB',{day:'numeric',month:'short'});
+  const events=[
+    {t:'Deep Learning & Neural Networks',m:'Dr. Ritu Sharma · C1 BSc AI · 9:00 AM',c:'ev-class'},
+    {t:'Lazada Singapore campus visit',m:'Business immersion · C1 · All day',c:'ev-immersion'},
+    {t:'Capstone Term 3 revenue review',m:'All C1 teams · 2:00 PM · Milestone check',c:'ev-capstone'},
+    {t:'AI in Finance masterclass',m:'Guest: Arun Kapoor, Goldman Sachs',c:'ev-masterclass'},
+    {t:'Summer internship debrief',m:'Career labs · C2 · 4:00 PM',c:'ev-career'},
+    {t:'5-a-side football league',m:'Sports · C1 & C2 · 6:00 PM',c:'ev-sport'},
+  ];
+  document.getElementById('this-week-events').innerHTML=events.map(e=>`<div class="wev ${e.c}"><div><div class="wev-t">${e.t}</div><div class="wev-m">${e.m}</div></div></div>`).join('');
+}
+function renderDashLeaderboard(){
+  const teams=get('capstone_teams').sort((a,b)=>b.revenue-a.revenue).slice(0,5);
+  const medals=['🥇','🥈','🥉','4','5'],cls=['rank1','rank2','rank3','',''];
+  document.getElementById('dash-leaderboard').innerHTML=teams.map((t,i)=>`
+    <div class="lb-item ${cls[i]}">
+      <div class="lb-rank">${medals[i]}</div>
+      <div class="lb-info"><div class="lb-name">${t.team_name}</div><div class="lb-sub">${t.cohort} · Term ${t.term} · ${t.location}</div></div>
+      <div class="lb-val">$${t.revenue.toLocaleString()}</div>
+    </div>`).join('');
+}
+function renderDashAttendance(){
+  const data=get('attendance').slice(-2);
+  if(!data.length){document.getElementById('dash-attendance').innerHTML='<p style="color:var(--muted);font-size:11px;">No data</p>';return;}
+  document.getElementById('dash-attendance').innerHTML=data.map(r=>`
+    <div style="margin-bottom:12px;">
+      <div style="display:flex;justify-content:space-between;margin-bottom:5px;">
+        <span style="font-size:12px;font-weight:600;">${r.cohort} · ${r.program}</span>
+        ${badge(status('attendance_agg',r.aggregate_att))}
+      </div>
+      ${pbar(r.aggregate_att)}
+      <div style="font-size:10px;color:var(--muted);margin-top:3px;">${r.below_70_count} students below 70% · ${r.location}</div>
+    </div>`).join('');
+}
+function renderDashCareer(){
+  document.getElementById('dash-career').innerHTML=`
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;">
+      <div><div style="font-size:22px;font-weight:700;color:var(--green);">100+</div><div style="font-size:11px;color:var(--muted);">Summer internships</div></div>
+      <div><div style="font-size:22px;font-weight:700;color:var(--cyan);">19</div><div style="font-size:11px;color:var(--muted);">Countries</div></div>
+      <div><div style="font-size:22px;font-weight:700;color:var(--yellow);">$100K+</div><div style="font-size:11px;color:var(--muted);">Cumulative stipend</div></div>
+      <div><div style="font-size:22px;font-weight:700;color:var(--pink);">70+</div><div style="font-size:11px;color:var(--muted);">Partner companies</div></div>
+    </div>
+    <div style="font-size:9px;color:var(--muted);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:5px;">Top companies</div>
+    <div class="co-strip">${['Google','eBay','BlackRock','F1','Nat. Geo','Goldman Sachs','McKinsey','Noon.com'].map(c=>`<span class="co-pill">${c}</span>`).join('')}</div>`;
+}
+
+// ACADEMICS
+function renderAcademics(){
+  const data=get('academics'),att=get('attendance'),ff=get('faculty_feedback');
+  const avgAtt=att.length?Math.round(att.reduce((s,r)=>s+r.aggregate_att,0)/att.length):0;
+  const avgRat=ff.length?(ff.reduce((s,r)=>s+r.avg_rating,0)/ff.length).toFixed(1):0;
+  const delivered=data.filter(r=>r.course_status==='Delivered').length;
+  document.getElementById('ac-kpis').innerHTML=
+    kpiHtml('Avg attendance',avgAtt+'%',status('attendance_agg',avgAtt),'across cohorts')+
+    kpiHtml('Faculty rating',avgRat+'/5',status('faculty_rating',avgRat),'avg feedback')+
+    kpiHtml('Courses delivered',delivered,'g','out of '+data.length)+
+    kpiHtml('Active faculty',[...new Set(data.map(r=>r.faculty_1))].length,'n','this term');
+  const alerts=ff.filter(r=>r.avg_rating<4.0).map(r=>`<div class="alert a-warn">⚠️ <div>${r.cohort} ${r.program} — faculty feedback below threshold (${r.avg_rating}/5) on ${r.week_date}</div></div>`).join('');
+  document.getElementById('ac-alerts').innerHTML=alerts;
+  document.getElementById('ac-table').innerHTML=`<div class="tbl-wrap"><div class="tbl-top"><span class="tbl-top-title">Course tracker</span><span class="tbl-count">${data.length} courses</span></div>`+
+    tblHtml(['Cohort','Program','Term','Code','Course name','Hours','Faculty','COT','Status','Score'],
+      data.map(r=>[r.cohort,r.program,'T'+r.term,r.course_code,r.course_name,r.hours,r.faculty_1,
+        `<span class="b ${r.cot_status==='Completed'?'b-g':'b-y'}">${r.cot_status}</span>`,
+        `<span class="b ${r.course_status==='Delivered'?'b-g':'b-c'}">${r.course_status}</span>`,
+        r.feedback_score?`<span style="color:var(--green);font-weight:700;">${r.feedback_score}★</span>`:'—']))+`</div>`;
+}
+
+// CAPSTONE
+function renderCapstone(){
+  const tf=document.getElementById('cs-term')?.value||'all',cf=document.getElementById('cs-cohort')?.value||'all',sf=document.getElementById('cs-status')?.value||'all';
+  let data=get('capstone_teams');
+  if(tf!=='all')data=data.filter(r=>r.term==tf);
+  if(cf!=='all')data=data.filter(r=>r.cohort===cf);
+  if(sf!=='all')data=data.filter(r=>r.status===sf);
+  const green=data.filter(r=>r.status==='green').length,yellow=data.filter(r=>r.status==='yellow').length,red=data.filter(r=>r.status==='red').length;
+  document.getElementById('cs-rag').innerHTML=`
+    <div class="rag rg"><div class="rag-n">${green}</div><div class="rag-lbl">On track</div></div>
+    <div class="rag ry"><div class="rag-n">${yellow}</div><div class="rag-lbl">Needs attention</div></div>
+    <div class="rag rr"><div class="rag-n">${red}</div><div class="rag-lbl">At risk</div></div>`;
+  const all=get('capstone_teams').sort((a,b)=>b.revenue-a.revenue);
+  const top=all[0];
+  if(top)document.getElementById('cs-winner').innerHTML=`
+    <div class="winner-banner">
+      <div class="wt-icon">🏆</div>
+      <div class="wi"><h4>${top.team_name} — overall revenue leader</h4><p>${top.company_name} · ${top.cohort} · Term ${top.term} · ${top.location} · ${top.product}</p></div>
+      <div class="wv"><div class="big">$${top.revenue.toLocaleString()}</div><div class="sm">Total revenue</div></div>
+    </div>`;
+  const sorted=data.sort((a,b)=>b.revenue-a.revenue);
+  const medals=['🥇','🥈','🥉'],rCls=['rank1','rank2','rank3'];
+  document.getElementById('cs-lb').innerHTML=sorted.map((t,i)=>`
+    <div class="lb-item ${rCls[i]||''}">
+      <div class="lb-rank">${medals[i]||i+1}</div>
+      <div class="lb-info"><div class="lb-name">${t.team_name}</div><div class="lb-sub">${t.cohort} · T${t.term} · ${badge(t.status)}</div></div>
+      <div class="lb-val">$${t.revenue.toLocaleString()}</div>
+    </div>`).join('');
+  document.getElementById('cs-table').innerHTML=`<div class="tbl-wrap"><div class="tbl-top"><span class="tbl-top-title">Team roster</span><span class="tbl-count">${data.length} teams</span></div>`+
+    tblHtml(['Team','Company','Cohort','Term','Location','Members','TETR funding','External','Revenue','Status'],
+      sorted.map(r=>[r.team_name,r.company_name,r.cohort,'T'+r.term,r.location,r.members_count,
+        '$'+r.tetr_funding.toLocaleString(),'$'+r.external_funding.toLocaleString(),
+        `<strong>$${r.revenue.toLocaleString()}</strong>`,badge(r.status)]))+`</div>`;
+}
+
+// CAREER LABS
+function renderCareer(){
+  document.getElementById('cl-hero-section').innerHTML=`
+    <div class="cl-hero">
+      <h3>Summer internship programme</h3>
+      <p>Class of '28 &amp; Class of '29 · 2025 &amp; 2026 cohorts combined</p>
+      <div class="cl-stats">
+        <div><div class="cl-sv">100+</div><div class="cl-sl">Internships secured</div></div>
+        <div><div class="cl-sv">19</div><div class="cl-sl">Countries</div></div>
+        <div><div class="cl-sv">$100K+</div><div class="cl-sl">Cumulative stipend</div></div>
+        <div><div class="cl-sv">70+</div><div class="cl-sl">Partner companies</div></div>
+      </div>
+    </div>`;
+  const opps=get('internship_opps'),placed=get('student_internships');
+  document.getElementById('cl-main').innerHTML=`
+    <div class="two-col">
+      <div>
+        <div class="tbl-wrap">
+          <div class="tbl-top"><span class="tbl-top-title">Student placements</span><span class="tbl-count">${placed.length} students</span></div>
+          ${tblHtml(['Student','Cohort','Company','Role','Stipend/mo','Duration','Status'],
+            placed.map(r=>[r.student_name,r.cohort,r.company_name,r.role,
+              '$'+r.stipend_usd.toLocaleString(),r.duration_months+'mo',
+              `<span class="b ${r.status==='Completed'?'b-g':'b-c'}">${r.status}</span>`]))}
+        </div>
+      </div>
+      <div>
+        <div class="card" style="margin-bottom:12px;">
+          <div class="card-head"><div class="card-title">Top earning students</div></div>
+          <div class="card-body">
+            <div class="lb">${placed.sort((a,b)=>b.stipend_usd-a.stipend_usd).slice(0,5).map((s,i)=>`
+              <div class="lb-item ${i<3?'rank'+(i+1):''}">
+                <div class="lb-rank">${['🥇','🥈','🥉'][i]||i+1}</div>
+                <div class="lb-info"><div class="lb-name">${s.student_name}</div><div class="lb-sub">${s.company_name} · ${s.cohort}</div></div>
+                <div class="lb-val">$${s.stipend_usd.toLocaleString()}</div>
+              </div>`).join('')}</div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-head"><div class="card-title">Opportunities by industry</div></div>
+          <div class="card-body">
+            ${[...new Set(opps.map(o=>o.industry))].map(ind=>{
+              const cnt=opps.filter(o=>o.industry===ind).length,pct=Math.round(cnt/opps.length*100);
+              return`<div style="margin-bottom:9px;"><div style="display:flex;justify-content:space-between;margin-bottom:3px;"><span style="font-size:11px;">${ind}</span><span style="font-size:11px;font-weight:700;">${cnt}</span></div>${pbar(pct)}</div>`;
+            }).join('')}
+          </div>
+        </div>
+      </div>
+    </div>`;
+}
+
+// IMMERSIONS
+function renderImmersions(){
+  const data=get('immersions');
+  const biz=data.filter(r=>r.type==='Business').length,cult=data.filter(r=>r.type==='Cultural').length;
+  document.getElementById('im-kpis').innerHTML=
+    kpiHtml('Business immersions',biz,'g','')+
+    kpiHtml('Cultural immersions',cult,'c','')+
+    kpiHtml('Completed',data.filter(r=>r.completed).length,'g','of '+data.length+' total')+
+    kpiHtml('Upcoming',data.filter(r=>!r.completed).length,'y','scheduled');
+  document.getElementById('im-table').innerHTML=`<div class="tbl-wrap"><div class="tbl-top"><span class="tbl-top-title">All immersions</span><span class="tbl-count">${data.length} events</span></div>`+
+    tblHtml(['Date','Cohort','Type','Name','Location','Status'],
+      data.map(r=>[r.week_date,r.cohort,`<span class="b ${r.type==='Business'?'b-c':'b-p'}">${r.type}</span>`,
+        r.name,r.location,`<span class="b ${r.completed?'b-g':'b-y'}">${r.completed?'Completed':'Upcoming'}</span>`]))+`</div>`;
+}
+
+// STUDENT EXPERIENCE
+function renderExperience(){
+  const data=get('student_exp');
+  const total=data.reduce((s,r)=>s+r.count,0);
+  document.getElementById('sx-kpis').innerHTML=
+    kpiHtml('Total participants',total,'g','')+
+    kpiHtml('Event categories',[...new Set(data.map(r=>r.category))].length,'c','')+
+    kpiHtml('Total events',data.length,'n','')+
+    kpiHtml('Avg per event',Math.round(total/data.length),'g','attendance');
+  document.getElementById('sx-table').innerHTML=`<div class="tbl-wrap"><div class="tbl-top"><span class="tbl-top-title">Activity log</span><span class="tbl-count">${data.length} events</span></div>`+
+    tblHtml(['Date','Cohort','Category','Activity','Participants'],
+      data.map(r=>[r.week_date,r.cohort,`<span class="b b-gray">${r.category}</span>`,r.activity_name,`<strong>${r.count}</strong>`]))+`</div>`;
+}
+
+// LMS
+function renderLMS(){
+  const data=get('lms');
+  if(!data.length){document.getElementById('lms-kpis').innerHTML='';return;}
+  const totalR=data.reduce((s,r)=>s+r.tickets_raised,0),totalRes=data.reduce((s,r)=>s+r.tickets_resolved,0);
+  const resRate=Math.round(totalRes/totalR*100),avgTAT=(data.reduce((s,r)=>s+r.avg_tat_days,0)/data.length).toFixed(1);
+  document.getElementById('lms-kpis').innerHTML=
+    kpiHtml('Tickets raised',totalR,'n','')+
+    kpiHtml('Resolution rate',resRate+'%',status('lms_resolution',resRate),'')+
+    kpiHtml('Avg turnaround',avgTAT+' days',status('lms_tat',avgTAT),'')+
+    kpiHtml('Open tickets',totalR-totalRes,totalR-totalRes>5?'r':'g','unresolved');
+  document.getElementById('lms-alerts').innerHTML=resRate<85?`<div class="alert a-warn">⚠️ Overall ticket resolution rate is ${resRate}% — below the 85% threshold.</div>`:'';
+  document.getElementById('lms-table').innerHTML=`<div class="tbl-wrap"><div class="tbl-top"><span class="tbl-top-title">Weekly ticket log</span></div>`+
+    tblHtml(['Date','Cohort','Raised','Resolved','Resolution rate','Avg TAT','Attendance','Academics','Welfare'],
+      data.map(r=>{const rr=Math.round(r.tickets_resolved/r.tickets_raised*100);
+        return[r.week_date,r.cohort,r.tickets_raised,r.tickets_resolved,
+          pbar(rr,rr>=85?'var(--green)':rr>=70?'var(--yellow)':'var(--red)'),
+          r.avg_tat_days+'d',r.attendance_count,r.academics_count,r.welfare_count];}))+`</div>`;
+}
+
+// CALENDAR
+let calDate=new Date(),calViewMode='month';
+const CAL_EVENTS=[
+  {date:'2026-07-07',title:'Deep Learning session',type:'class',meta:'C1 · Dr. Ritu Sharma'},
+  {date:'2026-07-08',title:'Lazada Singapore campus visit',type:'immersion',meta:'Business · C1'},
+  {date:'2026-07-09',title:'AI in Finance masterclass',type:'masterclass',meta:'Guest: Arun Kapoor, GS'},
+  {date:'2026-07-10',title:'Capstone Term 3 revenue review',type:'capstone',meta:'All C1 teams'},
+  {date:'2026-07-10',title:'Summer internship debrief',type:'career',meta:'Career labs · C2'},
+  {date:'2026-07-11',title:'5-a-side football league',type:'sport',meta:'C1 & C2'},
+  {date:'2026-07-14',title:'Entrepreneurial Finance',type:'class',meta:'Prof. Sahil Mehta · C1'},
+  {date:'2026-07-15',title:'Cultural immersion prep',type:'immersion',meta:'Cultural · C2'},
+  {date:'2026-07-17',title:'Demo day prep workshop',type:'capstone',meta:'C1 Term 3'},
+  {date:'2026-07-18',title:'Career counselling sessions',type:'career',meta:'1:1 · C2'},
+  {date:'2026-07-21',title:'Machine Learning Fundamentals',type:'class',meta:'C2 · Dr. Ritu Sharma'},
+  {date:'2026-07-22',title:'Wellness & mental health session',type:'sport',meta:'Student experience'},
+  {date:'2026-07-24',title:'Capstone Demo Day — Term 3',type:'capstone',meta:'Singapore · All C1 teams'},
+  {date:'2026-07-25',title:'Strategy masterclass',type:'masterclass',meta:'Guest: TBC'},
+  {date:'2026-07-28',title:'Operations & Supply Chain class',type:'class',meta:'Prof. Geeta Pillai · C2'},
+];
+const CC={class:'cc-class',immersion:'cc-immersion',capstone:'cc-capstone',career:'cc-career',sport:'cc-sport',masterclass:'cc-masterclass'};
+const EC={class:'ev-class',immersion:'ev-immersion',capstone:'ev-capstone',career:'ev-career',sport:'ev-sport',masterclass:'ev-masterclass'};
+const TC={class:'var(--green)',immersion:'#9C2AB5',capstone:'var(--yellow)',career:'var(--cyan)',sport:'#22C55E',masterclass:'var(--amber)'};
+function renderCalendar(){
+  document.getElementById('cal-title').textContent=calDate.toLocaleDateString('en-GB',{month:'long',year:'numeric'});
+  if(calViewMode==='month')renderMonthCal();else renderListCal();
+}
+function renderMonthCal(){
+  const y=calDate.getFullYear(),m=calDate.getMonth(),first=new Date(y,m,1),last=new Date(y,m+1,0),today=new Date();
+  let h=`<div class="month-cal"><div class="mc-hdr"><div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div></div><div class="mc-grid">`;
+  for(let i=0;i<first.getDay();i++){const d=new Date(y,m,1-first.getDay()+i);h+=`<div class="mday other-m"><div class="dnum">${d.getDate()}</div></div>`;}
+  for(let d=1;d<=last.getDate();d++){
+    const iT=y===today.getFullYear()&&m===today.getMonth()&&d===today.getDate();
+    const ds=`${y}-${String(m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+    const evs=CAL_EVENTS.filter(e=>e.date===ds);
+    h+=`<div class="mday${iT?' today-d':''}"><div class="dnum">${d}</div>`;
+    evs.forEach(e=>{h+=`<span class="cal-chip ${CC[e.type]||''}" title="${e.meta}">${e.title}</span>`;});
+    h+=`</div>`;
+  }
+  const last0=last.getDay();
+  if(last0<6)for(let i=1;i<=6-last0;i++){const d=new Date(y,m+1,i);h+=`<div class="mday other-m"><div class="dnum">${d.getDate()}</div></div>`;}
+  h+='</div></div>';
+  document.getElementById('cal-body').innerHTML=h;
+}
+function renderListCal(){
+  const y=calDate.getFullYear(),m=calDate.getMonth();
+  const evs=CAL_EVENTS.filter(e=>{const d=new Date(e.date);return d.getFullYear()===y&&d.getMonth()===m;});
+  if(!evs.length){document.getElementById('cal-body').innerHTML='<div style="padding:32px;text-align:center;color:var(--muted);">No events this month</div>';return;}
+  document.getElementById('cal-body').innerHTML=`<div class="cal-list-view">${evs.map(e=>{
+    const dl=new Date(e.date).toLocaleDateString('en-GB',{day:'numeric',month:'short'});
+    return`<div class="cl-ev ${EC[e.type]||''}" style="border-left-color:${TC[e.type]||'var(--muted)'}">
+      <div class="cl-ev-date">${dl}</div>
+      <div class="cl-ev-title">${e.title}</div>
+      <div class="cl-ev-meta">${e.meta}</div>
+    </div>`}).join('')}</div>`;
+}
+function calPrev(){calDate=new Date(calDate.getFullYear(),calDate.getMonth()-1,1);renderCalendar();}
+function calNext(){calDate=new Date(calDate.getFullYear(),calDate.getMonth()+1,1);renderCalendar();}
+function calToday(){calDate=new Date();renderCalendar();}
+function calView(mode,btn){calViewMode=mode;document.querySelectorAll('.cvb').forEach(b=>b.classList.remove('active'));btn.classList.add('active');renderCalendar();}
+
+// GUARDRAILS
+function renderGuardrails(){
+  const data=get('guardrails');
+  document.getElementById('gr-count').textContent=data.length+' rules';
+  document.getElementById('gr-tbody').innerHTML=data.map(r=>`
+    <tr><td><strong>${r.metric_name}</strong></td><td>${r.department}</td>
+    <td><span style="color:var(--red);">${r.comparison==='gte'?'< ':'> '}${r.red_threshold}${r.unit}</span></td>
+    <td><span style="color:var(--yellow);">${r.comparison==='gte'?'< ':'> '}${r.yellow_threshold}${r.unit}</span></td>
+    <td><span style="color:var(--green);">${r.comparison==='gte'?'≥ ':'≤ '}${r.green_threshold}${r.unit}</span></td>
+    <td style="font-family:'IBM Plex Mono',monospace;font-size:11px;">${r.unit}</td></tr>`).join('');
+}
+
+// SYNC
+function parseCSV(text){
+  const lines=text.trim().split('\n');if(lines.length<2)return[];
+  const headers=lines[0].split(',').map(h=>h.trim().replace(/^"|"$/g,''));
+  return lines.slice(1).map(line=>{
+    const vals=[],chars=[...line];let cur='',inQ=false;
+    for(const c of chars){if(c==='"')inQ=!inQ;else if(c===','&&!inQ){vals.push(cur.trim());cur='';}else cur+=c;}
+    vals.push(cur.trim());
+    const obj={};headers.forEach((h,i)=>{obj[h]=vals[i]||'';});return obj;});
+}
+async function loadSheet(key){
+  const gid=GIDS[key];if(!gid)return;
+  try{const r=await fetch(`${BASE}?gid=${gid}&single=true&output=csv`);const t=await r.text();if(t&&t.length>10)SD[key]=parseCSV(t);}
+  catch(e){console.warn('Failed:',key,e);}
+}
+async function syncAll(){
+  const btn=document.querySelector('.sync-btn');
+  btn.innerHTML='<div class="spin"></div> Syncing…';
+  await Promise.all(Object.keys(GIDS).map(k=>loadSheet(k)));
+  loadGR(get('guardrails'));
+  const now=new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
+  document.getElementById('sync-time').textContent='Synced at '+now;
+  btn.innerHTML='<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></svg> Sync from sheets';
+  const cur=document.querySelector('.view.active');
+  if(cur){const id=cur.id.replace('v-','');const render={capstone:renderCapstone,career:renderCareer,academics:renderAcademics,immersions:renderImmersions,experience:renderExperience,lms:renderLMS,guardrails:renderGuardrails};if(render[id])render[id]();}
+}
+
+// INIT
+loadGR(D.guardrails);
+renderDashboard();
+</script>
+</body>
+</html>
