@@ -236,6 +236,78 @@ code{background:var(--s3);padding:1px 5px;border-radius:3px;font-size:10.5px;fon
 .loading{display:flex;align-items:center;justify-content:center;gap:10px;padding:40px;color:var(--muted);font-size:12px;}
 .spin{width:18px;height:18px;border:2px solid var(--border2);border-top-color:var(--green);border-radius:50%;animation:spin .7s linear infinite;}
 @keyframes spin{to{transform:rotate(360deg);}}
+
+/* STAT STRIP */
+.stat-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px;}
+.stat-pill{background:var(--s1);border:1px solid var(--border);border-radius:10px;padding:12px 14px;display:flex;align-items:center;gap:11px;transition:all .2s;}
+.stat-pill:hover{transform:translateY(-1px);box-shadow:var(--shadow);}
+.stat-pill-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.sp-green{background:rgba(0,156,80,.12);}
+.sp-cyan{background:rgba(76,201,233,.12);}
+.sp-yellow{background:rgba(240,195,0,.12);}
+.sp-purple{background:rgba(156,42,181,.12);}
+.stat-pill-val{font-size:20px;font-weight:700;line-height:1;color:var(--text);}
+.stat-pill-lbl{font-size:10px;color:var(--muted);margin-top:2px;}
+
+/* PHOTO SLIDESHOW */
+.photo-section{margin-bottom:20px;}
+.photo-section-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
+.photo-section-title{font-size:13px;font-weight:700;color:var(--text);display:flex;align-items:center;gap:7px;}
+.see-all-btn{font-size:11px;font-weight:600;color:var(--green);cursor:pointer;padding:4px 10px;border-radius:6px;border:1px solid rgba(0,156,80,.3);background:rgba(0,156,80,.07);transition:all .15s;}
+.see-all-btn:hover{background:rgba(0,156,80,.14);}
+.photo-fade-wrap{position:relative;overflow:hidden;}
+.photo-fade-wrap::after{content:'';position:absolute;right:0;top:0;bottom:8px;width:140px;background:linear-gradient(to right,transparent,var(--bg));pointer-events:none;z-index:2;}
+.photo-slider{display:flex;gap:12px;overflow-x:auto;padding-bottom:6px;scroll-behavior:smooth;}
+.photo-slider::-webkit-scrollbar{height:3px;}
+.photo-card{min-width:210px;max-width:210px;background:var(--s1);border:1px solid var(--border);border-radius:11px;overflow:hidden;flex-shrink:0;transition:all .2s;cursor:default;}
+.photo-card:hover{transform:translateY(-2px);box-shadow:var(--shadow);border-color:var(--border2);}
+.photo-img{width:100%;height:140px;object-fit:cover;display:block;background:var(--s3);}
+.photo-tags{display:flex;gap:4px;padding:8px 9px 4px;flex-wrap:wrap;}
+.ptag{padding:2px 7px;border-radius:12px;font-size:9px;font-weight:700;}
+.pt-prog{background:rgba(0,156,80,.1);color:var(--green);}
+.pt-co{background:rgba(76,201,233,.1);color:var(--cyan);}
+[data-theme="light"] .pt-co{color:#0e7fa0;}
+.pt-ctry{background:rgba(156,42,181,.1);color:#CE93D8;}
+[data-theme="light"] .pt-ctry{color:#7B1FA2;}
+.photo-desc-wrap{padding:4px 9px 10px;}
+.photo-desc-text{font-size:11px;color:var(--text2);line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.read-more-btn{font-size:10.5px;font-weight:700;color:var(--green);cursor:pointer;background:none;border:none;font-family:inherit;padding:0;margin-top:2px;}
+.read-more-btn:hover{text-decoration:underline;}
+
+/* TOOLTIP */
+.tt-overlay{position:fixed;inset:0;z-index:999;pointer-events:none;}
+.tt{position:fixed;background:var(--s3);border:1px solid var(--border2);border-radius:10px;padding:13px 15px;font-size:11.5px;max-width:270px;z-index:1000;box-shadow:var(--shadow);line-height:1.65;color:var(--text);pointer-events:all;transition:opacity .15s;}
+.tt-close{float:right;cursor:pointer;font-size:13px;color:var(--muted);margin-left:8px;margin-top:-2px;line-height:1;}
+.tt-close:hover{color:var(--text);}
+
+/* GALLERY VIEW */
+.gallery-filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;}
+.gallery-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;}
+.gallery-card{background:var(--s1);border:1px solid var(--border);border-radius:11px;overflow:hidden;transition:all .2s;cursor:default;}
+.gallery-card:hover{transform:translateY(-2px);box-shadow:var(--shadow);border-color:var(--border2);}
+.gc-img{width:100%;height:160px;object-fit:cover;display:block;background:var(--s3);}
+.gc-tags{display:flex;gap:4px;padding:9px 10px 4px;flex-wrap:wrap;}
+.gc-desc{padding:3px 10px 11px;font-size:11px;color:var(--text2);line-height:1.5;}
+
+/* NPS VIEW */
+.nps-score-big{font-size:64px;font-weight:700;line-height:1;margin-bottom:4px;}
+.nps-positive{color:var(--green);}
+.nps-neutral{color:var(--yellow);}
+.nps-negative{color:var(--red);}
+.nps-breakdown{display:flex;height:8px;border-radius:4px;overflow:hidden;margin:10px 0;}
+.nps-pro-bar{background:var(--green);}
+.nps-pas-bar{background:var(--yellow);}
+.nps-det-bar{background:var(--red);}
+.nps-legend{display:flex;gap:14px;margin-bottom:14px;}
+.nps-leg-item{display:flex;align-items:center;gap:5px;font-size:10.5px;color:var(--muted);}
+.nps-leg-dot{width:7px;height:7px;border-radius:50%;}
+.nps-cohort-card{background:var(--s1);border:1px solid var(--border);border-radius:11px;padding:18px;transition:all .2s;}
+.nps-cohort-card:hover{transform:translateY(-1px);box-shadow:var(--shadow);}
+.nps-card-title{font-size:12px;font-weight:700;color:var(--muted);margin-bottom:8px;text-transform:uppercase;letter-spacing:1px;}
+.nps-trend-item{display:flex;align-items:center;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--border);}
+.nps-trend-item:last-child{border-bottom:none;}
+.nps-trend-label{font-size:11.5px;color:var(--text2);}
+.nps-trend-val{font-size:13px;font-weight:700;}
 </style>
 </head>
 <body>
@@ -281,6 +353,14 @@ code{background:var(--s3);padding:1px 5px;border-radius:3px;font-size:10.5px;fon
     <div class="nav-item" onclick="nav('calendar')">
       <svg class="nav-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
       Calendar
+    </div>
+    <div class="nav-item" onclick="nav('gallery')">
+      <svg class="nav-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+      Gallery
+    </div>
+    <div class="nav-item" onclick="nav('nps')">
+      <svg class="nav-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+      NPS tracker
     </div>
     <div class="nav-item" onclick="nav('guardrails')">
       <svg class="nav-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
@@ -351,6 +431,27 @@ code{background:var(--s3);padding:1px 5px;border-radius:3px;font-size:10.5px;fon
         <div class="sh-line"></div>
         <div class="sh-desc">Live delivery intelligence across academics, capstone, career labs, and student experience.</div>
       </div>
+
+      <!-- STAT STRIP -->
+      <div class="stat-strip">
+        <div class="stat-pill">
+          <div class="stat-pill-icon sp-green"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+          <div><div class="stat-pill-val" id="sp-enroll">—</div><div class="stat-pill-lbl">Students enrolled</div></div>
+        </div>
+        <div class="stat-pill">
+          <div class="stat-pill-icon sp-cyan"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></div>
+          <div><div class="stat-pill-val" id="sp-courses">—</div><div class="stat-pill-lbl">Courses delivered</div></div>
+        </div>
+        <div class="stat-pill">
+          <div class="stat-pill-icon sp-yellow"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--yellow)" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div>
+          <div><div class="stat-pill-val" id="sp-att">—</div><div class="stat-pill-lbl">Avg attendance</div></div>
+        </div>
+        <div class="stat-pill">
+          <div class="stat-pill-icon sp-purple"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--purple)" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
+          <div><div class="stat-pill-val" id="sp-nps">—</div><div class="stat-pill-lbl">Average NPS</div></div>
+        </div>
+      </div>
+
       <div class="hero-grid">
         <div class="hero-card hc-g"><div class="hero-num">$500K+</div><div class="hero-label">Cumulative capstone revenue</div></div>
         <div class="hero-card hc-y"><div class="hero-num">150+</div><div class="hero-label">Businesses registered</div></div>
@@ -359,8 +460,112 @@ code{background:var(--s3);padding:1px 5px;border-radius:3px;font-size:10.5px;fon
         <div class="hero-card hc-pk"><div class="hero-num">44</div><div class="hero-label">Business immersions</div></div>
         <div class="hero-card hc-a"><div class="hero-num">48</div><div class="hero-label">Cultural immersions</div></div>
       </div>
+
+      <!-- PHOTO SLIDESHOW -->
+      <div class="photo-section">
+        <div class="photo-section-head">
+          <div class="photo-section-title">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            New pictures
+          </div>
+          <span class="see-all-btn" onclick="nav('gallery')">See all pictures →</span>
+        </div>
+        <div class="photo-fade-wrap">
+          <div class="photo-slider" id="dash-photo-slider"></div>
+        </div>
+      </div>
+
+      <div class="col-wide-narrow">
+        <div class="card">
+          <div class="card-head">
+            <div class="card-title">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+              What's happening this week
+            </div>
+            <div class="card-badge" id="this-week-label"></div>
+          </div>
+          <div class="card-body"><div class="wev-list" id="this-week-events"></div></div>
+        </div>
+        <div class="card">
+          <div class="card-head">
+            <div class="card-title">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              Top capstone teams
+            </div>
+            <div class="card-badge">All time</div>
+          </div>
+          <div class="card-body"><div class="lb" id="dash-leaderboard"></div></div>
+        </div>
+      </div>
+      <div class="two-col">
+        <div class="card">
+          <div class="card-head"><div class="card-title">Attendance at a glance</div></div>
+          <div class="card-body" id="dash-attendance"></div>
+        </div>
+        <div class="card">
+          <div class="card-head"><div class="card-title">Career labs snapshot</div></div>
+          <div class="card-body" id="dash-career"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- GALLERY -->
+    <div class="view" id="v-gallery">
+      <div class="sh"><div class="sh-eye">Gallery</div><div class="sh-title">Photos &amp; moments</div><div class="sh-line"></div><div class="sh-desc">All photos uploaded to the shared Google Drive folder, tagged by program, cohort, and country.</div></div>
+      <div class="gallery-filters">
+        <input class="srch" placeholder="Search…" oninput="filterGallery(this.value)">
+        <select class="fb-select" id="gal-cohort" onchange="filterGallery()"><option value="all">All cohorts</option><option value="C1">Cohort 1</option><option value="C2">Cohort 2</option></select>
+        <select class="fb-select" id="gal-prog" onchange="filterGallery()"><option value="all">All programs</option><option value="BSc AI">BSc AI</option><option value="BBA AI">BBA AI</option></select>
+        <select class="fb-select" id="gal-country" onchange="filterGallery()"><option value="all">All countries</option><option>UAE</option><option>India</option><option>Singapore</option><option>Ghana</option></select>
+      </div>
+      <div class="gallery-grid" id="gallery-grid"></div>
+    </div>
+
+    <!-- NPS -->
+    <div class="view" id="v-nps">
+      <div class="sh"><div class="sh-eye">NPS tracker</div><div class="sh-title">Net Promoter Score by cohort &amp; program</div><div class="sh-line"></div><div class="sh-desc">How likely are students to recommend TETR? Promoters (9–10), Passives (7–8), Detractors (0–6).</div></div>
+      <div class="filter-row">
+        <select class="fb-select" id="nps-cohort" onchange="renderNPS()"><option value="all">All cohorts</option><option value="C1">Cohort 1</option><option value="C2">Cohort 2</option></select>
+        <select class="fb-select" id="nps-term" onchange="renderNPS()"><option value="all">All terms</option><option value="1">Term 1</option><option value="2">Term 2</option><option value="3">Term 3</option></select>
+      </div>
+      <div id="nps-main"></div>
+    </div>
+
+    <!-- ACADEMICS -->
+    <div class="view" id="v-academics">
+      <div class="sh"><div class="sh-eye">Academics</div><div class="sh-title">Faculty, courses &amp; attendance</div><div class="sh-line"></div></div>
+      <div class="subtabs">
+        <div class="stab active" onclick="stab(this)">Attendance</div>
+        <div class="stab" onclick="stab(this)">Faculty feedback</div>
+        <div class="stab" onclick="stab(this)">Course tracker</div>
+      </div>
+      <div class="filter-row">
+        <input class="srch" placeholder="Search faculty or course…">
+        <select class="fb-select"><option value="all">All locations</option><option>Dubai</option><option>India</option><option>Singapore</option><option>Ghana</option></select>
+      </div>
+      <div class="kpi-grid" id="ac-kpis"></div>
+      <div id="ac-alerts"></div>
+      <div id="ac-table"></div>
+    </div>
+
+    <!-- CAPSTONE -->
+    <div class="view" id="v-capstone">
+      <div class="sh"><div class="sh-eye">Capstone intelligence</div><div class="sh-title">Team performance &amp; rankings</div><div class="sh-line"></div></div>
+      <div class="subtabs">
+        <div class="stab active" onclick="stab(this)">Overview</div>
+        <div class="stab" onclick="stab(this)">Leaderboard</div>
+        <div class="stab" onclick="stab(this)">Deep dive</div>
+      </div>
+      <div class="filter-row">
+        <select class="fb-select" id="cs-term" onchange="renderCapstone()"><option value="all">All terms</option><option value="1">Term 1 — Dubai</option><option value="2">Term 2 — India</option><option value="3">Term 3 — Singapore</option><option value="4">Term 4 — Ghana</option></select>
+        <select class="fb-select" id="cs-cohort" onchange="renderCapstone()"><option value="all">All cohorts</option><option value="C1">Cohort 1</option><option value="C2">Cohort 2</option></select>
+        <select class="fb-select" id="cs-status" onchange="renderCapstone()"><option value="all">All statuses</option><option value="green">On track</option><option value="yellow">Needs attention</option><option value="red">At risk</option></select>
+      </div>
+      <div id="cs-winner"></div>
+
+      <!-- TERM BY TERM PERFORMANCE -->
       <div class="sh" style="margin-bottom:10px;"><div class="sh-eye">Term by term performance</div></div>
-      <div class="terms-row">
+      <div class="terms-row" style="margin-bottom:18px;">
         <div class="term-card">
           <div class="tc-badge">Term 1</div>
           <div class="tc-loc">📍 Dubai, UAE · E-commerce</div>
@@ -400,71 +605,7 @@ code{background:var(--s3);padding:1px 5px;border-radius:3px;font-size:10.5px;fon
           <div class="tc-kpi"><span class="tc-kpi-l">Status</span><span class="tc-kpi-v" style="color:var(--muted);">In planning</span></div>
         </div>
       </div>
-      <div class="col-wide-narrow">
-        <div class="card">
-          <div class="card-head">
-            <div class="card-title">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
-              What's happening this week
-            </div>
-            <div class="card-badge" id="this-week-label"></div>
-          </div>
-          <div class="card-body"><div class="wev-list" id="this-week-events"></div></div>
-        </div>
-        <div class="card">
-          <div class="card-head">
-            <div class="card-title">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-              Top capstone teams
-            </div>
-            <div class="card-badge">All time</div>
-          </div>
-          <div class="card-body"><div class="lb" id="dash-leaderboard"></div></div>
-        </div>
-      </div>
-      <div class="two-col">
-        <div class="card">
-          <div class="card-head"><div class="card-title">Attendance at a glance</div></div>
-          <div class="card-body" id="dash-attendance"></div>
-        </div>
-        <div class="card">
-          <div class="card-head"><div class="card-title">Career labs snapshot</div></div>
-          <div class="card-body" id="dash-career"></div>
-        </div>
-      </div>
-    </div>
 
-    <!-- ACADEMICS -->
-    <div class="view" id="v-academics">
-      <div class="sh"><div class="sh-eye">Academics</div><div class="sh-title">Faculty, courses &amp; attendance</div><div class="sh-line"></div></div>
-      <div class="subtabs">
-        <div class="stab active" onclick="stab(this)">Attendance</div>
-        <div class="stab" onclick="stab(this)">Faculty feedback</div>
-        <div class="stab" onclick="stab(this)">Course tracker</div>
-      </div>
-      <div class="filter-row">
-        <input class="srch" placeholder="Search faculty or course…">
-        <select class="fb-select"><option value="all">All locations</option><option>Dubai</option><option>India</option><option>Singapore</option><option>Ghana</option></select>
-      </div>
-      <div class="kpi-grid" id="ac-kpis"></div>
-      <div id="ac-alerts"></div>
-      <div id="ac-table"></div>
-    </div>
-
-    <!-- CAPSTONE -->
-    <div class="view" id="v-capstone">
-      <div class="sh"><div class="sh-eye">Capstone intelligence</div><div class="sh-title">Team performance &amp; rankings</div><div class="sh-line"></div></div>
-      <div class="subtabs">
-        <div class="stab active" onclick="stab(this)">Overview</div>
-        <div class="stab" onclick="stab(this)">Leaderboard</div>
-        <div class="stab" onclick="stab(this)">Deep dive</div>
-      </div>
-      <div class="filter-row">
-        <select class="fb-select" id="cs-term" onchange="renderCapstone()"><option value="all">All terms</option><option value="1">Term 1 — Dubai</option><option value="2">Term 2 — India</option><option value="3">Term 3 — Singapore</option><option value="4">Term 4 — Ghana</option></select>
-        <select class="fb-select" id="cs-cohort" onchange="renderCapstone()"><option value="all">All cohorts</option><option value="C1">Cohort 1</option><option value="C2">Cohort 2</option></select>
-        <select class="fb-select" id="cs-status" onchange="renderCapstone()"><option value="all">All statuses</option><option value="green">On track</option><option value="yellow">Needs attention</option><option value="red">At risk</option></select>
-      </div>
-      <div id="cs-winner"></div>
       <div class="rag-row" id="cs-rag"></div>
       <div class="two-col">
         <div id="cs-table"></div>
@@ -575,7 +716,7 @@ code{background:var(--s3);padding:1px 5px;border-radius:3px;font-size:10.5px;fon
 
 <script>
 const BASE='https://docs.google.com/spreadsheets/d/e/2PACX-1vRiBfB8cN6fwu3ijHhS_HlSMvA3zKHUP1ULFsn9MY5w-TUcH2qqDuETEcukqQLZpAvwsfmiySB7c-by/pub';
-const GIDS={attendance:null,faculty_feedback:null,capstone:null,capstone_teams:null,career_labs:null,internship_opps:null,student_internships:null,lms:null,immersions:null,student_exp:null,academics:null,guardrails:null};
+const GIDS={attendance:null,faculty_feedback:null,capstone:null,capstone_teams:null,career_labs:null,internship_opps:null,student_internships:null,lms:null,immersions:null,student_exp:null,academics:null,guardrails:null,gallery:null,nps:null};
 const D={
   attendance:[
     {week_date:'2026-07-04',cohort:'C1',program:'BSc AI',location:'Singapore',aggregate_att:91,overall_att:89,below_70_count:2,comments:''},
@@ -691,14 +832,14 @@ function toggleTheme(){
     ic.innerHTML='<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>';
   }
 }
-const PAGE_TITLES={dashboard:'Dashboard overview',academics:'Academics',capstone:'Capstone intelligence',career:'Career labs',immersions:'Immersions',experience:'Student experience',lms:'LMS & welfare',calendar:'Academic calendar',guardrails:'Guardrails config'};
+const PAGE_TITLES={dashboard:'Dashboard overview',academics:'Academics',capstone:'Capstone intelligence',career:'Career labs',immersions:'Immersions',experience:'Student experience',lms:'LMS & welfare',calendar:'Academic calendar',gallery:'Gallery',nps:'NPS tracker',guardrails:'Guardrails config'};
 function nav(id){
   document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
   document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
   document.querySelectorAll('.nav-item').forEach(n=>{if(n.getAttribute('onclick')===`nav('${id}')`)n.classList.add('active');});
   document.getElementById('v-'+id).classList.add('active');
   document.getElementById('page-title').textContent=PAGE_TITLES[id]||id;
-  const render={capstone:renderCapstone,career:renderCareer,academics:renderAcademics,immersions:renderImmersions,experience:renderExperience,lms:renderLMS,calendar:renderCalendar,guardrails:renderGuardrails};
+  const render={capstone:renderCapstone,career:renderCareer,academics:renderAcademics,immersions:renderImmersions,experience:renderExperience,lms:renderLMS,calendar:renderCalendar,gallery:renderGallery,nps:renderNPS,guardrails:renderGuardrails};
   if(render[id])render[id]();
 }
 function stab(el){
@@ -709,7 +850,7 @@ function stab(el){
 function applyFilters(){renderDashboard();}
 
 // DASHBOARD
-function renderDashboard(){renderThisWeek();renderDashLeaderboard();renderDashAttendance();renderDashCareer();}
+function renderDashboard(){renderStatStrip();renderThisWeek();renderDashLeaderboard();renderDashAttendance();renderDashCareer();renderDashPhotos();}
 function renderThisWeek(){
   const now=new Date();
   document.getElementById('this-week-label').textContent='Week of '+now.toLocaleDateString('en-GB',{day:'numeric',month:'short'});
@@ -985,6 +1126,57 @@ function renderGuardrails(){
     <td style="font-family:'IBM Plex Mono',monospace;font-size:11px;">${r.unit}</td></tr>`).join('');
 }
 
+// ─── COLUMN NAME MAPPING (friendly sheet headers → app keys) ────────────────
+const COL_MAP={
+  // shared
+  'Week Date':'week_date','Cohort':'cohort','Program':'program','Location':'location',
+  'Comments':'comments','Status':'status','Type':'type','Name':'name',
+  'Country':'country','Term':'term','Industry':'industry',
+  // attendance
+  'Aggregate Attendance %':'aggregate_att','Overall Attendance %':'overall_att',
+  'Students Below 70%':'below_70_count',
+  // faculty feedback
+  'Avg Rating':'avg_rating','Courses Completed':'courses_completed',
+  // capstone teams
+  'Team Name':'team_name','Company Name':'company_name','Member Count':'members_count',
+  'Country of Setup':'country_of_setup','TETR Funding (USD)':'tetr_funding',
+  'External Funding (USD)':'external_funding','Revenue (USD)':'revenue',
+  'Product Description':'product',
+  // internship opps
+  'Role Title':'role_title','Stipend (USD/mo)':'stipend_usd','Number of Roles':'number_of_roles',
+  // student internships
+  'Student Name':'student_name','Role':'role','Duration (months)':'duration_months',
+  // lms
+  'Tickets Raised':'tickets_raised','Tickets Resolved':'tickets_resolved',
+  'Avg Turnaround (days)':'avg_tat_days','Attendance Tickets':'attendance_count',
+  'Academics Tickets':'academics_count','Welfare Tickets':'welfare_count',
+  // immersions
+  'Completed':'completed',
+  // student experience
+  'Category':'category','Activity Name':'activity_name','Participants':'count',
+  // academics
+  'Course Code':'course_code','Course Name':'course_name','Hours':'hours',
+  'Faculty':'faculty_1','COT Status':'cot_status','Course Status':'course_status',
+  'Feedback Score':'feedback_score',
+  // guardrails
+  'Metric ID':'metric_id','Metric Name':'metric_name','Department':'department',
+  'Red Threshold':'red_threshold','Yellow Threshold':'yellow_threshold',
+  'Green Threshold':'green_threshold','Comparison':'comparison','Unit':'unit',
+  // gallery
+  'File ID':'file_id','Description':'description','Date Added':'date',
+  // nps
+  'Promoters':'promoters','Passives':'passives','Detractors':'detractors','Total':'total',
+};
+function normalizeRow(obj){
+  const out={};
+  for(const[k,v]of Object.entries(obj)){
+    const key=COL_MAP[k.trim()]||k.trim().toLowerCase().replace(/\s+/g,'_');
+    // coerce numeric-looking strings
+    out[key]=v===''?'':isNaN(v)?v:Number(v);
+  }
+  return out;
+}
+
 // SYNC
 function parseCSV(text){
   const lines=text.trim().split('\n');if(lines.length<2)return[];
@@ -993,7 +1185,9 @@ function parseCSV(text){
     const vals=[],chars=[...line];let cur='',inQ=false;
     for(const c of chars){if(c==='"')inQ=!inQ;else if(c===','&&!inQ){vals.push(cur.trim());cur='';}else cur+=c;}
     vals.push(cur.trim());
-    const obj={};headers.forEach((h,i)=>{obj[h]=vals[i]||'';});return obj;});
+    const raw={};headers.forEach((h,i)=>{raw[h]=vals[i]||'';});
+    return normalizeRow(raw);
+  });
 }
 async function loadSheet(key){
   const gid=GIDS[key];if(!gid)return;
@@ -1010,6 +1204,196 @@ async function syncAll(){
   btn.innerHTML='<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></svg> Sync from sheets';
   const cur=document.querySelector('.view.active');
   if(cur){const id=cur.id.replace('v-','');const render={capstone:renderCapstone,career:renderCareer,academics:renderAcademics,immersions:renderImmersions,experience:renderExperience,lms:renderLMS,guardrails:renderGuardrails};if(render[id])render[id]();}
+}
+
+// ─── GALLERY DEMO DATA ────────────────────────────────────────────────────────
+// When live: populate the Gallery tab in your Google Sheet with file_id, program, cohort, country, description, date_added
+// Image URL: https://drive.google.com/uc?export=view&id=FILE_ID
+const GALLERY_PHOTOS=[
+  {file_id:null,program:'BSc AI',cohort:'C1',country:'Singapore',description:'Teams presenting Kickstarter campaigns at Term 3 Demo Day. ClickBuddy raised 100% of their funding goal within 30 minutes of going live on the platform.',date:'2026-07-05',img:'https://picsum.photos/seed/tetrsg/400/250'},
+  {file_id:null,program:'BBA AI',cohort:'C2',country:'India',description:'Cohort 2 visiting the Tata Group manufacturing facility in Mumbai as part of their D2C immersion. Students toured the factory floor and spoke with production leads.',date:'2026-04-20',img:'https://picsum.photos/seed/tetrin/400/250'},
+  {file_id:null,program:'BSc AI',cohort:'C1',country:'UAE',description:'Term 1 Demo Day at the Dubai office. Tafflo and Taowist teams presenting their dropshipping ventures to a panel of regional investors and TETR alumni.',date:'2026-03-15',img:'https://picsum.photos/seed/tetrdxb/400/250'},
+  {file_id:null,program:'BBA AI',cohort:'C1',country:'India',description:'Icebreakers D2C brand launch in Mumbai. The team sold out their first batch of artisanal beverages within 4 hours — a cohort record for Term 2.',date:'2026-05-08',img:'https://picsum.photos/seed/tetrice/400/250'},
+  {file_id:null,program:'BSc AI',cohort:'C2',country:'UAE',description:'Cohort 2 orientation week in Dubai. Students from 14 countries settling into the campus and meeting their capstone team members for the first time.',date:'2026-01-10',img:'https://picsum.photos/seed/tetrc2/400/250'},
+  {file_id:null,program:'BBA AI',cohort:'C1',country:'Singapore',description:'Dyson Singapore HQ immersion. Students got a behind-the-scenes look at product development labs and had a Q&A with the VP of Innovation.',date:'2026-05-12',img:'https://picsum.photos/seed/tetrdyson/400/250'},
+  {file_id:null,program:'BSc AI',cohort:'C2',country:'India',description:'Mango Protocol team at their AgriTech D2C launch event. First batch sold directly through their Instagram store before the official website launched.',date:'2026-06-01',img:'https://picsum.photos/seed/tetrmango/400/250'},
+  {file_id:null,program:'BBA AI',cohort:'C1',country:'Ghana',description:'Savannah Project team conducting community outreach in northern Ghana. The social impact venture reached 1,973 lives in its first operating month.',date:'2026-06-20',img:'https://picsum.photos/seed/tetrgh/400/250'},
+];
+
+function getImgUrl(photo){return photo.file_id?`https://drive.google.com/uc?export=view&id=${photo.file_id}`:photo.img;}
+
+function photoCardHtml(p,compact){
+  const url=getImgUrl(p);
+  const shortDesc=p.description.length>80?p.description.slice(0,78)+'…':p.description;
+  const needsMore=p.description.length>80;
+  if(compact){
+    return`<div class="photo-card">
+      <img class="photo-img" src="${url}" alt="${p.program} ${p.cohort}" loading="lazy" onerror="this.style.background='var(--s3)';this.src=''">
+      <div class="photo-tags">
+        <span class="ptag pt-prog">${p.program}</span>
+        <span class="ptag pt-co">${p.cohort}</span>
+        <span class="ptag pt-ctry">${p.country}</span>
+      </div>
+      <div class="photo-desc-wrap">
+        <div class="photo-desc-text">${shortDesc}</div>
+        ${needsMore?`<button class="read-more-btn" onclick="showTooltip(event,'${p.description.replace(/'/g,"\\'")}')">Read more</button>`:''}
+      </div>
+    </div>`;
+  }else{
+    return`<div class="gallery-card">
+      <img class="gc-img" src="${url}" alt="${p.program} ${p.cohort}" loading="lazy" onerror="this.style.background='var(--s3)';this.src=''">
+      <div class="gc-tags">
+        <span class="ptag pt-prog">${p.program}</span>
+        <span class="ptag pt-co">${p.cohort}</span>
+        <span class="ptag pt-ctry">${p.country}</span>
+        <span class="ptag" style="background:var(--s3);color:var(--muted);">${p.date}</span>
+      </div>
+      <div class="gc-desc">${p.description}${needsMore?'':''}</div>
+    </div>`;
+  }
+}
+
+function showTooltip(e,text){
+  closeTooltip();
+  const tt=document.createElement('div');
+  tt.className='tt';
+  tt.style.top=(e.clientY-10)+'px';
+  tt.style.left=Math.min(e.clientX+10,window.innerWidth-290)+'px';
+  tt.innerHTML=`<span class="tt-close" onclick="closeTooltip()">✕</span>${text}`;
+  document.body.appendChild(tt);
+  document.addEventListener('click',outsideTooltipClose,{once:true,capture:true});
+}
+function closeTooltip(){const t=document.querySelector('.tt');if(t)t.remove();}
+function outsideTooltipClose(e){if(!e.target.closest('.tt')&&!e.target.classList.contains('read-more-btn'))closeTooltip();}
+
+// DASHBOARD PHOTO SLIDER
+function renderDashPhotos(){
+  const photos=get('gallery').length?get('gallery'):GALLERY_PHOTOS;
+  document.getElementById('dash-photo-slider').innerHTML=photos.map(p=>photoCardHtml(p,true)).join('');
+}
+
+// GALLERY VIEW
+function renderGallery(){
+  const co=document.getElementById('gal-cohort')?.value||'all';
+  const pr=document.getElementById('gal-prog')?.value||'all';
+  const ct=document.getElementById('gal-country')?.value||'all';
+  let photos=get('gallery').length?get('gallery'):GALLERY_PHOTOS;
+  if(co!=='all')photos=photos.filter(p=>p.cohort===co);
+  if(pr!=='all')photos=photos.filter(p=>p.program===pr);
+  if(ct!=='all')photos=photos.filter(p=>p.country===ct);
+  document.getElementById('gallery-grid').innerHTML=photos.length
+    ?photos.map(p=>photoCardHtml(p,false)).join('')
+    :'<div style="padding:32px;text-align:center;color:var(--muted);font-size:12px;">No photos match these filters</div>';
+}
+function filterGallery(){renderGallery();}
+
+// ─── NPS DATA ────────────────────────────────────────────────────────────────
+const NPS_DATA=[
+  {cohort:'C1',program:'BSc AI',term:'1',promoters:16,passives:7,detractors:3,total:26},
+  {cohort:'C1',program:'BSc AI',term:'2',promoters:19,passives:5,detractors:2,total:26},
+  {cohort:'C1',program:'BSc AI',term:'3',promoters:21,passives:4,detractors:1,total:26},
+  {cohort:'C1',program:'BBA AI',term:'1',promoters:13,passives:8,detractors:4,total:25},
+  {cohort:'C1',program:'BBA AI',term:'2',promoters:15,passives:7,detractors:3,total:25},
+  {cohort:'C1',program:'BBA AI',term:'3',promoters:18,passives:5,detractors:2,total:25},
+  {cohort:'C2',program:'BSc AI',term:'1',promoters:18,passives:6,detractors:2,total:26},
+  {cohort:'C2',program:'BSc AI',term:'2',promoters:22,passives:3,detractors:1,total:26},
+  {cohort:'C2',program:'BBA AI',term:'1',promoters:14,passives:7,detractors:4,total:25},
+  {cohort:'C2',program:'BBA AI',term:'2',promoters:17,passives:6,detractors:2,total:25},
+];
+function calcNPS(d){return Math.round((d.promoters/d.total - d.detractors/d.total)*100);}
+function npsColor(n){return n>=50?'nps-positive':n>=0?'nps-neutral':'nps-negative';}
+
+function renderNPS(){
+  const cf=document.getElementById('nps-cohort')?.value||'all';
+  const tf=document.getElementById('nps-term')?.value||'all';
+  let data=NPS_DATA;
+  if(cf!=='all')data=data.filter(d=>d.cohort===cf);
+  if(tf!=='all')data=data.filter(d=>d.term==tf);
+  if(!data.length){document.getElementById('nps-main').innerHTML='<div style="padding:32px;text-align:center;color:var(--muted);">No data</div>';return;}
+
+  const avgNPS=Math.round(data.reduce((s,d)=>s+calcNPS(d),0)/data.length);
+  const totalP=data.reduce((s,d)=>s+d.promoters,0);
+  const totalPas=data.reduce((s,d)=>s+d.passives,0);
+  const totalDet=data.reduce((s,d)=>s+d.detractors,0);
+  const totalAll=totalP+totalPas+totalDet;
+  const pPct=Math.round(totalP/totalAll*100),pasPct=Math.round(totalPas/totalAll*100),detPct=100-pPct-pasPct;
+
+  // Group by cohort+program for cards
+  const groups={};
+  data.forEach(d=>{const k=d.cohort+' '+d.program;if(!groups[k])groups[k]=[];groups[k].push(d);});
+
+  document.getElementById('nps-main').innerHTML=`
+    <div class="two-col" style="margin-bottom:16px;">
+      <div class="nps-cohort-card" style="display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;">
+        <div style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;">Overall NPS</div>
+        <div class="nps-score-big ${npsColor(avgNPS)}">${avgNPS>0?'+':''}${avgNPS}</div>
+        <div class="nps-breakdown">
+          <div class="nps-pro-bar" style="width:${pPct}%"></div>
+          <div class="nps-pas-bar" style="width:${pasPct}%"></div>
+          <div class="nps-det-bar" style="width:${detPct}%"></div>
+        </div>
+        <div class="nps-legend">
+          <div class="nps-leg-item"><div class="nps-leg-dot" style="background:var(--green)"></div>${pPct}% Promoters</div>
+          <div class="nps-leg-item"><div class="nps-leg-dot" style="background:var(--yellow)"></div>${pasPct}% Passives</div>
+          <div class="nps-leg-item"><div class="nps-leg-dot" style="background:var(--red)"></div>${detPct}% Detractors</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-head"><div class="card-title">NPS by cohort &amp; program</div></div>
+        <div class="card-body">
+          ${Object.entries(groups).map(([k,rows])=>{
+            const latest=rows.sort((a,b)=>b.term-a.term)[0];
+            const n=calcNPS(latest);
+            return`<div class="nps-trend-item">
+              <div class="nps-trend-label">${k} <span style="color:var(--muted);font-size:10px;">· T${latest.term}</span></div>
+              <div class="nps-trend-val ${npsColor(n)}">${n>0?'+':''}${n}</div>
+            </div>`;
+          }).join('')}
+        </div>
+      </div>
+    </div>
+    <div class="three-col">
+      ${Object.entries(groups).slice(0,3).map(([k,rows])=>{
+        const sorted=rows.sort((a,b)=>a.term-b.term);
+        return`<div class="nps-cohort-card">
+          <div class="nps-card-title">${k}</div>
+          ${sorted.map(d=>{const n=calcNPS(d);return`
+            <div class="nps-trend-item">
+              <div class="nps-trend-label">Term ${d.term}</div>
+              <div>
+                <div class="nps-trend-val ${npsColor(n)}">${n>0?'+':''}${n}</div>
+                <div style="font-size:9.5px;color:var(--muted);">${d.promoters}P · ${d.passives}N · ${d.detractors}D</div>
+              </div>
+            </div>`}).join('')}
+        </div>`;
+      }).join('')}
+    </div>
+    <div class="tbl-wrap">
+      <div class="tbl-top"><span class="tbl-top-title">All NPS records</span><span class="tbl-count">${data.length} entries</span></div>
+      ${tblHtml(['Cohort','Program','Term','Promoters','Passives','Detractors','Total','NPS'],
+        data.sort((a,b)=>a.cohort.localeCompare(b.cohort)||a.term-b.term).map(d=>{
+          const n=calcNPS(d);
+          return[d.cohort,d.program,'T'+d.term,
+            `<span style="color:var(--green);font-weight:700;">${d.promoters}</span>`,
+            `<span style="color:var(--yellow);">${d.passives}</span>`,
+            `<span style="color:var(--red);">${d.detractors}</span>`,
+            d.total,`<strong class="${npsColor(n)}">${n>0?'+':''}${n}</strong>`];}))}
+    </div>`;
+}
+
+// STAT STRIP for dashboard
+function renderStatStrip(){
+  const att=get('attendance'),ac=get('academics'),npsAll=NPS_DATA;
+  const avgAtt=att.length?Math.round(att.reduce((s,r)=>s+r.aggregate_att,0)/att.length):89;
+  const delivered=ac.filter(r=>r.course_status==='Delivered').length||12;
+  const enrolled=102;
+  const avgNPS=Math.round(npsAll.reduce((s,d)=>s+calcNPS(d),0)/npsAll.length);
+  document.getElementById('sp-enroll').textContent=enrolled;
+  document.getElementById('sp-courses').textContent=delivered;
+  document.getElementById('sp-att').textContent=avgAtt+'%';
+  const npsEl=document.getElementById('sp-nps');
+  npsEl.textContent=(avgNPS>0?'+':'')+avgNPS;
+  npsEl.className='stat-pill-val '+npsColor(avgNPS);
 }
 
 // INIT
