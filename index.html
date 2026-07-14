@@ -953,14 +953,24 @@ function renderCapstone(){
 
 // CAREER LABS
 function shortResult(r){
-  if(!r||r==='')return null;
-  if(r.includes('Dropped')||r.includes('dropped'))return 'Dropped';
-  if(r.includes('Cancelled')||r.includes('cancelled'))return 'Cancelled';
-  if(r.includes('Did not Start')||r.includes('did not start'))return 'Not started';
-  if(r.includes('Terminated')||r.includes('terminated'))return 'Terminated';
+  if(!r||r===''||typeof r!=='string')return null;
+  const l=r.toLowerCase();
+  if(l.includes('dropped'))return 'Dropped';
+  if(l.includes('cancelled'))return 'Cancelled';
+  if(l.includes('did not start'))return 'Not started';
+  if(l.includes('terminated'))return 'Terminated';
   return r.slice(0,18)+'…';
 }
 function renderCareer(){
+  try{_renderCareer();}catch(e){
+    console.error('renderCareer error:',e);
+    const h=document.getElementById('cl-hero-section');
+    const m=document.getElementById('cl-main');
+    if(h)h.innerHTML='<div style="padding:20px;color:var(--muted);font-size:12px;">⚠ Error loading career data. Check browser console for details.</div>';
+    if(m)m.innerHTML='';
+  }
+}
+function _renderCareer(){
   const data=get('career');
   const countries=[...new Set(data.map(r=>r.country).filter(Boolean))].length;
   const companies=[...new Set(data.map(r=>r.company_name).filter(Boolean))].length;
@@ -1218,13 +1228,25 @@ function normalizeRow(obj){
 
 // SYNC
 function parseCSV(text){
-  const lines=text.trim().split('\n');if(lines.length<2)return[];
-  const headers=lines[0].split(',').map(h=>h.trim().replace(/^"|"$/g,''));
-  return lines.slice(1).map(line=>{
-    const vals=[],chars=[...line];let cur='',inQ=false;
-    for(const c of chars){if(c==='"')inQ=!inQ;else if(c===','&&!inQ){vals.push(cur.trim());cur='';}else cur+=c;}
-    vals.push(cur.trim());
-    const raw={};headers.forEach((h,i)=>{raw[h]=vals[i]||'';});
+  // Normalize line endings
+  text=text.replace(/\r\n/g,'\n').replace(/\r/g,'\n').trim();
+  // Tokenize respecting quoted fields (including multiline)
+  const rows=[];let cur='',inQ=false,cells=[],i=0;
+  while(i<text.length){
+    const c=text[i];
+    if(c==='"'){
+      if(inQ&&text[i+1]==='"'){cur+='"';i+=2;continue;}
+      inQ=!inQ;i++;continue;
+    }
+    if(c===','&&!inQ){cells.push(cur);cur='';i++;continue;}
+    if(c==='\n'&&!inQ){cells.push(cur);rows.push(cells);cells=[];cur='';i++;continue;}
+    cur+=c;i++;
+  }
+  cells.push(cur);rows.push(cells);
+  if(rows.length<2)return[];
+  const headers=rows[0].map(h=>h.trim().replace(/^"|"$/g,''));
+  return rows.slice(1).filter(r=>r.some(v=>v.trim())).map(vals=>{
+    const raw={};headers.forEach((h,j)=>{raw[h]=(vals[j]||'').replace(/\n/g,' ').trim();});
     return normalizeRow(raw);
   });
 }
