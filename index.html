@@ -716,7 +716,7 @@ code{background:var(--s3);padding:1px 5px;border-radius:3px;font-size:10.5px;fon
 
 <script>
 const BASE='https://docs.google.com/spreadsheets/d/e/2PACX-1vRiBfB8cN6fwu3ijHhS_HlSMvA3zKHUP1ULFsn9MY5w-TUcH2qqDuETEcukqQLZpAvwsfmiySB7c-by/pub';
-const GIDS={attendance:null,faculty_feedback:null,capstone:null,capstone_teams:null,career_labs:null,internship_opps:null,student_internships:null,lms:null,immersions:null,student_exp:null,academics:null,guardrails:null,gallery:null,nps:null};
+const GIDS={attendance:null,faculty_feedback:null,capstone:null,capstone_teams:null,career:null,lms:null,immersions:null,student_exp:null,academics:null,guardrails:null,gallery:null,nps:null};
 const D={
   attendance:[
     {week_date:'2026-07-04',cohort:'C1',program:'BSc AI',location:'Singapore',aggregate_att:91,overall_att:89,below_70_count:2,comments:''},
@@ -744,27 +744,19 @@ const D={
     {cohort:'C2',term:'2',location:'India',team_name:'Mango Protocol',company_name:'Mango Protocol Pvt',members_count:4,country_of_setup:'India',tetr_funding:7000,external_funding:18000,status:'green',revenue:26800,product:'AgriTech D2C'},
     {cohort:'C2',term:'2',location:'India',team_name:'Velox',company_name:'Velox India',members_count:3,country_of_setup:'India',tetr_funding:7000,external_funding:3000,status:'red',revenue:4100,product:'Logistics SaaS'},
   ],
-  internship_opps:[
-    {company_name:'Google',country:'USA',industry:'Technology',role_title:'Product Management Intern',stipend_usd:6000,number_of_roles:2,status:'Active'},
-    {company_name:'eBay',country:'USA',industry:'Technology',role_title:'Data Analyst Intern',stipend_usd:4500,number_of_roles:3,status:'Active'},
-    {company_name:'BlackRock',country:'UK',industry:'Finance',role_title:'Investment Research Intern',stipend_usd:5500,number_of_roles:1,status:'Active'},
-    {company_name:'National Geographic',country:'UAE',industry:'Media',role_title:'Content Strategy Intern',stipend_usd:2800,number_of_roles:2,status:'Active'},
-    {company_name:'F1 (Formula One Group)',country:'UK',industry:'Sports & Media',role_title:'Digital Marketing Intern',stipend_usd:3200,number_of_roles:2,status:'Active'},
-    {company_name:'Noon.com',country:'UAE',industry:'E-commerce',role_title:'Growth Marketing Intern',stipend_usd:2500,number_of_roles:3,status:'Active'},
-    {company_name:'McKinsey & Company',country:'India',industry:'Consulting',role_title:'Business Analyst Intern',stipend_usd:3800,number_of_roles:1,status:'Active'},
-    {company_name:'Goldman Sachs',country:'India',industry:'Finance',role_title:'Markets Intern',stipend_usd:4200,number_of_roles:2,status:'Active'},
-    {company_name:'Flipkart',country:'India',industry:'E-commerce',role_title:'Product Intern',stipend_usd:2000,number_of_roles:3,status:'Active'},
-    {company_name:'Accenture',country:'India',industry:'Consulting',role_title:'Strategy Intern',stipend_usd:2200,number_of_roles:4,status:'Active'},
-  ],
-  student_internships:[
-    {student_name:'Aryan Shah',cohort:'C1',program:'BSc AI',company_name:'Google',industry:'Technology',role:'PM Intern',stipend_usd:6000,duration_months:3,status:'Completed'},
-    {student_name:'Priya Nair',cohort:'C1',program:'BBA AI',company_name:'BlackRock',industry:'Finance',role:'Investment Intern',stipend_usd:5500,duration_months:3,status:'Completed'},
-    {student_name:'Rohan Mehta',cohort:'C1',program:'BSc AI',company_name:'F1',industry:'Sports',role:'Digital Marketing',stipend_usd:3200,duration_months:2,status:'Completed'},
-    {student_name:'Sara Al-Farsi',cohort:'C2',program:'BBA AI',company_name:'eBay',industry:'Technology',role:'Data Analyst',stipend_usd:4500,duration_months:3,status:'Active'},
-    {student_name:'Kavya Reddy',cohort:'C2',program:'BSc AI',company_name:'National Geographic',industry:'Media',role:'Content Intern',stipend_usd:2800,duration_months:2,status:'Active'},
-    {student_name:'Aditya Kumar',cohort:'C2',program:'BBA AI',company_name:'Goldman Sachs',industry:'Finance',role:'Markets Intern',stipend_usd:4200,duration_months:3,status:'Active'},
-    {student_name:'Zara Ahmed',cohort:'C1',program:'BBA AI',company_name:'McKinsey',industry:'Consulting',role:'Business Analyst',stipend_usd:3800,duration_months:2,status:'Completed'},
-    {student_name:'Dev Patel',cohort:'C1',program:'BSc AI',company_name:'Noon.com',industry:'E-commerce',role:'Growth Intern',stipend_usd:2500,duration_months:2,status:'Completed'},
+  career:[
+    {student_name:'Chng Jbao',cohort:'Class of 2028',program:'BMT',company_name:'China Singapore Education Pvt Ltd',country:'Singapore',industry:'Education',role:'Data Analyst',mode:'Remote',stipend_usd:2500,duration_months:6,student_earnings:15000,term:'Term 2',academic_year:'2024-2025',result:'',source:'Student Sourced',status:'Completed'},
+    {student_name:'Jana Amr',cohort:'Class of 2028',program:'BMT',company_name:'Immortal Dragons',country:'China',industry:'VC',role:'Design',mode:'Remote',stipend_usd:1600,duration_months:2,student_earnings:3200,term:'Summer',academic_year:'2024-2025',result:'',source:'Campus',status:'Completed'},
+    {student_name:'Emily Yobal',cohort:'Class of 2028',program:'BMT',company_name:'Immortal Dragons',country:'China',industry:'VC',role:'Design',mode:'Remote',stipend_usd:1600,duration_months:6,student_earnings:9600,term:'Summer',academic_year:'2024-2025',result:'',source:'Campus',status:'Live'},
+    {student_name:'Rushil Chawla',cohort:'Class of 2028',program:'BMT',company_name:'Miraiminds',country:'Japan',industry:'Education',role:'Marketing',mode:'Remote',stipend_usd:650,duration_months:8,student_earnings:5200,term:'Term 3',academic_year:'2024-2025',result:'',source:'Campus',status:'Completed'},
+    {student_name:'Muhammad Raza',cohort:'Class of 2028',program:'BMT',company_name:'Noon',country:'UAE',industry:'Quick Commerce',role:'Logistics',mode:'Onsite',stipend_usd:1000,duration_months:2,student_earnings:0,term:'Summer',academic_year:'2024-2025',result:'Recruiter Cancelled Offers Before Start',source:'Campus',status:'Completed'},
+    {student_name:'Dua Zafar',cohort:'Class of 2028',program:'BMT',company_name:'Noon',country:'UAE',industry:'Quick Commerce',role:'Logistics',mode:'Onsite',stipend_usd:1000,duration_months:2,student_earnings:0,term:'Summer',academic_year:'2024-2025',result:'Recruiter Cancelled Offers Before Start',source:'Campus',status:'Offered'},
+    {student_name:'Snigdha Dubey',cohort:'Class of 2028',program:'BMT',company_name:'Qurist',country:'India',industry:'D2C',role:'Go To Market Strategy',mode:'Onsite',stipend_usd:180,duration_months:2,student_earnings:360,term:'Term 2',academic_year:'2024-2025',result:'',source:'Student Sourced',status:'Completed'},
+    {student_name:'Janya Godara',cohort:'Class of 2028',program:'BMT',company_name:'Ijya Jewellery',country:'India',industry:'Jewellery',role:'B2B Partnerships',mode:'Remote',stipend_usd:190,duration_months:2,student_earnings:380,term:'Term 2',academic_year:'2024-2025',result:'',source:'Campus',status:'Completed'},
+    {student_name:'Moma Florence Andin Stephanie',cohort:'Class of 2028',program:'BMT',company_name:'Miraiminds',country:'Japan',industry:'Education',role:'Marketing',mode:'Remote',stipend_usd:100,duration_months:2,student_earnings:200,term:'Term 3',academic_year:'2024-2025',result:'',source:'Campus',status:'Completed'},
+    {student_name:'Anjali Chhetri',cohort:'Class of 2028',program:'BMT',company_name:'EcoRatings',country:'India',industry:'Sustainable Buildings',role:'Go To Market Strategy',mode:'Remote',stipend_usd:200,duration_months:3,student_earnings:600,term:'Term 2',academic_year:'2024-2025',result:'Student Dropped MidWay during the Internship',source:'Campus',status:'Completed'},
+    {student_name:'Sudina Wosti',cohort:'Class of 2028',program:'BMT',company_name:'Parallel Steps',country:'India',industry:'HR Tech',role:'Go To Market Strategy',mode:'Hybrid',stipend_usd:120,duration_months:1.5,student_earnings:180,term:'Term 2',academic_year:'2024-2025',result:'Student Dropped Midway During the Internship',source:'Campus',status:'Completed'},
+    {student_name:'Dennis Ntwali',cohort:'Class of 2028',program:'BMT',company_name:'The Myriad',country:'UAE',industry:'Real Estate',role:'Operations',mode:'Remote',stipend_usd:200,duration_months:3,student_earnings:600,term:'Term 1',academic_year:'2024-2025',result:'',source:'Campus',status:'Completed'},
   ],
   lms:[
     {week_date:'2026-07-04',cohort:'C1',tickets_raised:12,tickets_resolved:11,avg_tat_days:1.2,attendance_count:3,academics_count:4,leave_count:2,capstone_count:2,welfare_count:1},
@@ -888,15 +880,19 @@ function renderDashAttendance(){
     </div>`).join('');
 }
 function renderDashCareer(){
+  const data=get('career');
+  const countries=[...new Set(data.map(r=>r.country))].length;
+  const companies=[...new Set(data.map(r=>r.company_name))];
+  const earnings=data.reduce((s,r)=>s+(Number(r.student_earnings)||0),0);
   document.getElementById('dash-career').innerHTML=`
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;">
-      <div><div style="font-size:22px;font-weight:700;color:var(--green);">100+</div><div style="font-size:11px;color:var(--muted);">Summer internships</div></div>
-      <div><div style="font-size:22px;font-weight:700;color:var(--cyan);">19</div><div style="font-size:11px;color:var(--muted);">Countries</div></div>
-      <div><div style="font-size:22px;font-weight:700;color:var(--yellow);">$100K+</div><div style="font-size:11px;color:var(--muted);">Cumulative stipend</div></div>
-      <div><div style="font-size:22px;font-weight:700;color:var(--pink);">70+</div><div style="font-size:11px;color:var(--muted);">Partner companies</div></div>
+      <div><div style="font-size:22px;font-weight:700;color:var(--green);">${data.length}+</div><div style="font-size:11px;color:var(--muted);">Internships</div></div>
+      <div><div style="font-size:22px;font-weight:700;color:var(--cyan);">${countries}</div><div style="font-size:11px;color:var(--muted);">Countries</div></div>
+      <div><div style="font-size:22px;font-weight:700;color:var(--yellow);">$${Math.round(earnings/1000)}K+</div><div style="font-size:11px;color:var(--muted);">Student earnings</div></div>
+      <div><div style="font-size:22px;font-weight:700;color:var(--pink);">${companies.length}+</div><div style="font-size:11px;color:var(--muted);">Partner companies</div></div>
     </div>
     <div style="font-size:9px;color:var(--muted);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:5px;">Top companies</div>
-    <div class="co-strip">${['Google','eBay','BlackRock','F1','Nat. Geo','Goldman Sachs','McKinsey','Noon.com'].map(c=>`<span class="co-pill">${c}</span>`).join('')}</div>`;
+    <div class="co-strip">${companies.slice(0,8).map(c=>`<span class="co-pill">${c}</span>`).join('')}</div>`;
 }
 
 // ACADEMICS
@@ -956,47 +952,78 @@ function renderCapstone(){
 }
 
 // CAREER LABS
+function shortResult(r){
+  if(!r||r==='')return null;
+  if(r.includes('Dropped')||r.includes('dropped'))return 'Dropped';
+  if(r.includes('Cancelled')||r.includes('cancelled'))return 'Cancelled';
+  if(r.includes('Did not Start')||r.includes('did not start'))return 'Not started';
+  if(r.includes('Terminated')||r.includes('terminated'))return 'Terminated';
+  return r.slice(0,18)+'…';
+}
 function renderCareer(){
+  const data=get('career');
+  const countries=[...new Set(data.map(r=>r.country).filter(Boolean))].length;
+  const companies=[...new Set(data.map(r=>r.company_name).filter(Boolean))].length;
+  const earningsTotal=data.reduce((s,r)=>s+(Number(r.student_earnings)||0),0);
+  const completed=data.filter(r=>!shortResult(r.result)).length;
   document.getElementById('cl-hero-section').innerHTML=`
     <div class="cl-hero">
-      <h3>Summer internship programme</h3>
-      <p>Class of '28 &amp; Class of '29 · 2025 &amp; 2026 cohorts combined</p>
+      <h3>Career labs · internship tracker</h3>
+      <p>Class of 2028 · all terms · ${data.length} placements on record</p>
       <div class="cl-stats">
-        <div><div class="cl-sv">100+</div><div class="cl-sl">Internships secured</div></div>
-        <div><div class="cl-sv">19</div><div class="cl-sl">Countries</div></div>
-        <div><div class="cl-sv">$100K+</div><div class="cl-sl">Cumulative stipend</div></div>
-        <div><div class="cl-sv">70+</div><div class="cl-sl">Partner companies</div></div>
+        <div><div class="cl-sv">${data.length}</div><div class="cl-sl">Internships secured</div></div>
+        <div><div class="cl-sv">${countries}</div><div class="cl-sl">Countries</div></div>
+        <div><div class="cl-sv">$${Math.round(earningsTotal/1000)}K</div><div class="cl-sl">Student earnings</div></div>
+        <div><div class="cl-sv">${companies}</div><div class="cl-sl">Partner companies</div></div>
       </div>
     </div>`;
-  const opps=get('internship_opps'),placed=get('student_internships');
+  const industries=[...new Set(data.map(r=>r.industry).filter(Boolean))];
   document.getElementById('cl-main').innerHTML=`
     <div class="two-col">
       <div>
         <div class="tbl-wrap">
-          <div class="tbl-top"><span class="tbl-top-title">Student placements</span><span class="tbl-count">${placed.length} students</span></div>
-          ${tblHtml(['Student','Cohort','Company','Role','Stipend/mo','Duration','Status'],
-            placed.map(r=>[r.student_name,r.cohort,r.company_name,r.role,
-              '$'+r.stipend_usd.toLocaleString(),r.duration_months+'mo',
-              `<span class="b ${r.status==='Completed'?'b-g':'b-c'}">${r.status}</span>`]))}
+          <div class="tbl-top"><span class="tbl-top-title">Student placements</span><span class="tbl-count">${data.length} records</span></div>
+          ${tblHtml(['Student','Cohort','Company','Country','Industry','Role','Mode','Term','Stipend/mo','Earnings','Outcome'],
+            data.map(r=>{
+              const outcome=shortResult(r.result);
+              return[r.student_name||'—',r.cohort||'—',r.company_name||'—',r.country||'—',r.industry||'—',r.role||'—',
+                r.mode||'—',r.term||'—',
+                r.stipend_usd?'$'+Number(r.stipend_usd).toLocaleString():'—',
+                r.student_earnings?'$'+Number(r.student_earnings).toLocaleString():'—',
+                outcome?`<span class="b b-r">${outcome}</span>`:`<span class="b b-g">Completed</span>`];
+            }))}
         </div>
       </div>
       <div>
         <div class="card" style="margin-bottom:12px;">
-          <div class="card-head"><div class="card-title">Top earning students</div></div>
+          <div class="card-head"><div class="card-title">Top earners (total)</div></div>
           <div class="card-body">
-            <div class="lb">${placed.sort((a,b)=>b.stipend_usd-a.stipend_usd).slice(0,5).map((s,i)=>`
+            <div class="lb">${[...data].filter(r=>Number(r.student_earnings)>0).sort((a,b)=>Number(b.student_earnings)-Number(a.student_earnings)).slice(0,5).map((s,i)=>`
               <div class="lb-item ${i<3?'rank'+(i+1):''}">
                 <div class="lb-rank">${['🥇','🥈','🥉'][i]||i+1}</div>
-                <div class="lb-info"><div class="lb-name">${s.student_name}</div><div class="lb-sub">${s.company_name} · ${s.cohort}</div></div>
-                <div class="lb-val">$${s.stipend_usd.toLocaleString()}</div>
+                <div class="lb-info"><div class="lb-name">${s.student_name}</div><div class="lb-sub">${s.company_name||'—'} · ${s.term||'—'}</div></div>
+                <div class="lb-val">$${Number(s.student_earnings).toLocaleString()}</div>
               </div>`).join('')}</div>
           </div>
         </div>
-        <div class="card">
-          <div class="card-head"><div class="card-title">Opportunities by industry</div></div>
+        <div class="card" style="margin-bottom:12px;">
+          <div class="card-head"><div class="card-title">Outcomes breakdown</div></div>
           <div class="card-body">
-            ${[...new Set(opps.map(o=>o.industry))].map(ind=>{
-              const cnt=opps.filter(o=>o.industry===ind).length,pct=Math.round(cnt/opps.length*100);
+            ${[['Completed','b-g',data.filter(r=>!shortResult(r.result)).length],
+               ['Dropped','b-r',data.filter(r=>(r.result||'').toLowerCase().includes('dropped')).length],
+               ['Cancelled','b-r',data.filter(r=>(r.result||'').toLowerCase().includes('cancelled')).length],
+               ['Not started','b-y',data.filter(r=>(r.result||'').toLowerCase().includes('did not')).length],
+               ['Terminated','b-r',data.filter(r=>(r.result||'').toLowerCase().includes('terminated')).length],
+            ].filter(x=>x[2]>0).map(([label,cls,cnt])=>
+              `<div style="display:flex;align-items:center;gap:8px;margin-bottom:7px;"><span class="b ${cls}" style="min-width:80px;">${label}</span><span style="font-size:13px;font-weight:700;">${cnt}</span><span style="font-size:11px;color:var(--muted);">(${Math.round(cnt/data.length*100)}%)</span></div>`
+            ).join('')}
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-head"><div class="card-title">Placements by industry</div></div>
+          <div class="card-body">
+            ${industries.map(ind=>{
+              const cnt=data.filter(r=>r.industry===ind).length,pct=Math.round(cnt/data.length*100);
               return`<div style="margin-bottom:9px;"><div style="display:flex;justify-content:space-between;margin-bottom:3px;"><span style="font-size:11px;">${ind}</span><span style="font-size:11px;font-weight:700;">${cnt}</span></div>${pbar(pct)}</div>`;
             }).join('')}
           </div>
@@ -1130,8 +1157,8 @@ function renderGuardrails(){
 const COL_MAP={
   // shared
   'Week Date':'week_date','Cohort':'cohort','Program':'program','Location':'location',
-  'Comments':'comments','Status':'status','Type':'type','Name':'name',
-  'Country':'country','Term':'term','Industry':'industry',
+  'Comments':'comments','Status':'status','Type':'type','Name':'student_name',
+  'Country':'country','Term':'term','Term ':'term','Industry':'industry',
   // attendance
   'Aggregate Attendance %':'aggregate_att','Overall Attendance %':'overall_att',
   'Students Below 70%':'below_70_count',
@@ -1142,10 +1169,22 @@ const COL_MAP={
   'Country of Setup':'country_of_setup','TETR Funding (USD)':'tetr_funding',
   'External Funding (USD)':'external_funding','Revenue (USD)':'revenue',
   'Product Description':'product',
-  // internship opps
-  'Role Title':'role_title','Stipend (USD/mo)':'stipend_usd','Number of Roles':'number_of_roles',
-  // student internships
-  'Student Name':'student_name','Role':'role','Duration (months)':'duration_months',
+  // career (exact CSV column names)
+  'Email ID':'email',
+  'Department / Industry':'industry','Functional Role':'role',
+  'Stipend Type':'stipend_type','Mode':'mode','Opportunity Type':'opportunity_type',
+  'Stipend Per Month (USD)':'stipend_usd','Academic Year':'academic_year',
+  'Start Date':'start_date','End Date':'end_date',
+  'Lead Category':'lead_category','Source':'source','Closure Month':'closure_month',
+  'Number of Months':'duration_months',
+  'Student Earnings':'student_earnings',
+  'Letter of Engagement':'letter_engagement','Letter of Experience':'letter_experience',
+  'Result  (Completed / Student Dropped MidWay during the Internship / Recruited Terminated / Student Did not Start)':'result',
+  'Spoc':'spoc','Cost Incurred (in USD)':'cost_usd','Cumulative':'cumulative',
+  'Student Action':'student_action','Signed Offer Letter':'signed_offer',
+  // legacy aliases
+  'Student Name':'student_name','Role Title':'role_title',
+  'Stipend (USD/mo)':'stipend_usd','Duration (months)':'duration_months',
   // lms
   'Tickets Raised':'tickets_raised','Tickets Resolved':'tickets_resolved',
   'Avg Turnaround (days)':'avg_tat_days','Attendance Tickets':'attendance_count',
