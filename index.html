@@ -1020,10 +1020,10 @@ function _renderCareer(){
           <div class="card-head"><div class="card-title">Outcomes breakdown</div></div>
           <div class="card-body">
             ${[['Completed','b-g',data.filter(r=>!shortResult(r.result)).length],
-               ['Dropped','b-r',data.filter(r=>(r.result||'').toLowerCase().includes('dropped')).length],
-               ['Cancelled','b-r',data.filter(r=>(r.result||'').toLowerCase().includes('cancelled')).length],
-               ['Not started','b-y',data.filter(r=>(r.result||'').toLowerCase().includes('did not')).length],
-               ['Terminated','b-r',data.filter(r=>(r.result||'').toLowerCase().includes('terminated')).length],
+               ['Dropped','b-r',data.filter(r=>shortResult(r.result)==='Dropped').length],
+               ['Cancelled','b-r',data.filter(r=>shortResult(r.result)==='Cancelled').length],
+               ['Not started','b-y',data.filter(r=>shortResult(r.result)==='Not started').length],
+               ['Terminated','b-r',data.filter(r=>shortResult(r.result)==='Terminated').length],
             ].filter(x=>x[2]>0).map(([label,cls,cnt])=>
               `<div style="display:flex;align-items:center;gap:8px;margin-bottom:7px;"><span class="b ${cls}" style="min-width:80px;">${label}</span><span style="font-size:13px;font-weight:700;">${cnt}</span><span style="font-size:11px;color:var(--muted);">(${Math.round(cnt/data.length*100)}%)</span></div>`
             ).join('')}
@@ -1221,7 +1221,8 @@ function normalizeRow(obj){
   for(const[k,v]of Object.entries(obj)){
     const key=COL_MAP[k.trim()]||k.trim().toLowerCase().replace(/\s+/g,'_');
     // coerce numeric-looking strings
-    out[key]=v===''?'':isNaN(v)?v:Number(v);
+    // Only coerce to number if the value looks purely numeric (no letters/symbols)
+    out[key]=v===''?'':/^-?\d+(\.\d+)?$/.test(v)?Number(v):v;
   }
   return out;
 }
